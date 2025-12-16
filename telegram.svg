@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="699.99994"
+   height="699.99988"
+   viewBox="0 0 27.999998 27.999995"
+   fill="none"
+   version="1.1"
+   id="svg2"
+   sodipodi:docname="telegram-svgrepo-com.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview2"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="27.999998"
+       height="27.999994"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
+  <circle
+     cx="14"
+     cy="14"
+     r="14"
+     fill="url(#paint0_linear_87_7225)"
+     id="circle1"
+     style="fill:url(#paint0_linear_87_7225)" />
+  <path
+     d="m 20.986601,8.2088021 c 0.1246,-0.80548 -0.6412,-1.44125 -1.3574,-1.1268 L 5.3648212,13.344802 c -0.51359,0.2255 -0.47602,1.0035 0.05665,1.1731 l 2.9416295,0.9368 c 0.5615,0.1788 1.1694,0.0863 1.6597003,-0.2524 l 6.6322,-4.582 c 0.2,-0.1382 0.418,0.1462 0.2471,0.3223 l -4.774,4.922 c -0.4631,0.4775 -0.3712,1.2866 0.1859,1.6359 l 5.345,3.3518 c 0.5995,0.3759 1.3707,-0.0017 1.4828,-0.7262 z"
+     fill="#ffffff"
+     id="path1" />
+  <defs
+     id="defs2">
+    <linearGradient
+       id="paint0_linear_87_7225"
+       x1="16"
+       y1="2"
+       x2="16"
+       y2="30"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-1.9999988,-1.9999979)">
+      <stop
+         stop-color="#37BBFE"
+         id="stop1" />
+      <stop
+         offset="1"
+         stop-color="#007DBB"
+         id="stop2" />
+    </linearGradient>
+  </defs>
+</svg>
