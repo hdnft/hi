@@ -2,17 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Hi Draw NFT</title>
-            <link rel="icon" type="image/svg" href="favicon.svg">
-                <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hi Draw NFT | Perpetual On-Chain Lottery & Rewards on Polygon-WETH</title>
+
+    <meta name="description" content="Hi Draw NFT is a perpetual on-chain liquidity engine on Polygon. Win NFTs daily via Transaction Mining (TX Draw) and Free Registration. Fair, transparent, and immutable rewards.">
+    <meta name="keywords" content="NFT, Polygon, Crypto Lottery, Web3, Smart Contract, Free NFT, Airdrop, On-chain Draw, Hi Draw NFT, Ethereum">
+    <meta name="author" content="Hi-Draw-NFT Team">
+    <meta name="robots" content="index, follow">
+
+    <link rel="icon" type="image/svg" href="favicon.svg">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Hi Draw NFT",
+      "applicationCategory": "DecentralizedApplication",
+      "operatingSystem": "Polygon Blockchain",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "ETH"
+      },
+      "description": "A perpetual on-chain drawing system rewarding users with NFTs based on transaction history and free registration."
+    }
+</script>
+
 <style>
-/* 1. تعریف متغیرهای رنگ که حذف شده بود */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    body, html, * {
+            font-family: 'Courier New', Courier, monospace !important;
+        }
+
+        #countdown-popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .glass-modal {
+            background: #1a1a1a;
+            backdrop-filter: blur(15px);
+            max-height: 75vh; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timer-box {
+            background: rgba(139, 139, 139, 0.356);
+            padding: 5px;
+            min-width: 65px;
+            text-align: center;
+        }
+        
+        .modal-open {
+            overflow: hidden;
+    }
+
 :root {
-    --color-1: #00ff00; /* سبز روشن */
-    --color-2: #ffff00; /* زرد روشن */
-    --color-3: #ff6600; /* نارنجی روشن */
-    --color-4: #ff0000; /* قرمز روشن */
+    --color-1: #00ff00;
+    --color-2: #ffff00;
+    --color-3: #ff6600;
+    --color-4: #ff0000;
 }
 
 body {
@@ -59,6 +124,113 @@ body {
             flex-shrink: 0;
 
     }
+
+        .search-wrapper {
+            max-width: 600px;
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 50px 14px 18px;
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: white;
+            font-family: monospace;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .search-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+        .search-icon-btn {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .search-icon-btn:hover { color: #3b82f6; }
+
+        /* Popup Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 40;
+        }
+        .modal-content {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #111;
+            border: 1px solid #333;
+            width: 90%;
+            max-width: 550px;
+            border-radius: 16px;
+            z-index: 50;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translate(-50%, -48%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #151515;
+        }
+
+        .results-body {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .result-card {
+            background: #1c1c1c;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .spinner {
+            width: 24px; height: 24px;
+            border: 3px solid #333;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
 .info-carousel-wrapper {
     display: flex;
@@ -422,7 +594,6 @@ body {
         }
 }
 
-/* --- استایل‌های بخش ناوبری تاریخ (Navigation) --- */
 .drawing-navigation {
     margin: 0 0;
     margin-bottom: 14px;
@@ -431,7 +602,6 @@ body {
     box-shadow: 3px 3px 0px #00ff00;
 }
 
-/* --- استایل اختصاصی جدید برای انتخاب‌گر سال (Year Carousel) --- */
 .year-selector-wrapper {
     display: flex;
     align-items: center;
@@ -442,7 +612,7 @@ body {
 
 .year-viewport {
     overflow: hidden;
-    width: 100%; /* یا یک عرض ثابت اگر بخواهید */
+    width: 100%;
     margin: 0 5px;
     position: relative;
 }
@@ -450,11 +620,10 @@ body {
 .year-track {
     display: flex;
     gap: 1px;
-    transition: transform 0.3s ease-in-out; /* حرکت نرم */
+    transition: transform 0.3s ease-in-out;
     will-change: transform;
 }
 
-/* استایل هر باکس سال - دقیقاً شبیه توکن‌ها */
 .year-square {
     width: 56px;
     height: 56px;
@@ -462,7 +631,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1rem; /* کمی بزرگتر برای خوانایی سال */
+    font-size: 1rem;
     color: #000000;
     background: #ffffff;
     cursor: pointer;
@@ -475,7 +644,7 @@ body {
     color: #ffffff;
 }
 
-/* حالت انتخاب شده برای سال */
+
 .year-square.selected {
     background-color: #00ff00 !important;
     color: #000000 !important;
@@ -489,7 +658,6 @@ body {
     cursor: not-allowed;
 }
 
-/* --- استایل ماه‌ها و روزها (همان استایل قبلی) --- */
 .selector-row {
     display: flex;
     flex-wrap: wrap;
@@ -541,7 +709,6 @@ body {
     background-color: transparent;
 }
 
-/* --- استایل باکس نتیجه --- */
 .draw-result-container {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -593,9 +760,8 @@ body {
     color: #555555 !important;
 }
 
-/* --- استایل جدید برای کرسر تایپ --- */
 .txt-type > .txt {
-    border-right: 0.01rem solid #ffffff; /* کرسر سبز */
+    border-right: 0.01rem solid #ffffff;
     animation: blink-caret 0.6s infinite;
 }
 @keyframes blink-caret {
@@ -604,7 +770,7 @@ body {
 }
 
 .menu-link {
-            color: #00ff00; /* سبز روشن برای لینک‌ها */
+            color: #00ff00;
             text-decoration: none;
             margin-left: 15px;
             transition: color 0.3s;
@@ -615,15 +781,13 @@ body {
             text-decoration: underline;
         }
 
-
-        /* --- استایل‌های بخش جدید Free Draw --- */
         .free-draw-section {
             width: auto;
             border: none;
             padding: 7px;
             padding-top: 7px;
             padding-bottom: 9px;
-            background-color: #9599a8; /* کمی تیره‌تر از پس زمینه */
+            background-color: #9599a8;
         }
         
         .terminal-input {
@@ -663,7 +827,6 @@ body {
             cursor: not-allowed;
         }
 
-        /* --- استایل‌های پاپ‌آپ (هماهنگ با تم ترمینال) --- */
         .popup-modal {
             transition: opacity 0.1s ease, transform 0.1s ease;
         }
@@ -772,7 +935,6 @@ body {
     color: #ff0000;
     }
 
-/* تعریف انیمیشن */
 @keyframes color-cycle-text {
     0%    { color: var(--color-1); }
     20%   { color: var(--color-2); }
@@ -782,15 +944,12 @@ body {
     100%  { color: var(--color-3); }
 }
 
-/* کلاس انیمیشن */
 .animated-text {
     animation: color-cycle-text 5s infinite alternate;
     font-weight: bold;
-    color: var(--color-2); /* رنگ اولیه برای اطمینان */
+    color: var(--color-2);
 }
 
-
-/* اعمال انیمیشن به محتوای توضیحات */
 #description-box {
     border: 1px solid #3a3a3a;
         padding: 10px;
@@ -801,34 +960,134 @@ body {
 </style>
 
 </head>
-
-<body>
-
-<!--######################## MAIN HEADER ################################################ MAIN HEADER ########################################################################-->
-<div class="container">
-    <div class="main-header">
-        <h1 class="project-title">
-            <a href="" style="text-decoration: none;" target="_blank" title="Hi Draw NFT HOME">
-                <span style="color: #00ff00;" class="blink">●</span><span style="color: #ffffff;">Hi-Draw-NFT</span>
-            </a>
-        </h1>
-
-<!--######################## MAIN HEADER BTN ################################################ MAIN HEADER BTN ########################################################################-->
-    <div class="header-buttons">
-        <a href="https://discord.gg/wtHj78mD2W" class="double-button" title="HDNFT Discord Server" alt="Hi-Draw-NFT Discord Server" target="_blank">
-            <img src="discord.svg" alt="Discord Icon">
-                </a>
-                    <a href="https://t.me/Hi_Draw_NTF" class="double-button" title="HDNFT Telegram Channel" alt="Hi-Draw-NFT Telegram Channel" target="_blank">
-                        <img src="telegram.svg" alt="Telegram Icon">
-                    </a>
-                <a href="https://opensea.io/0x840753e7c047ca8c5931b78608713050041abf66/created" class="double-button" title="HDNFT OpenSea collections" alt="Hi-Draw-NFT OpenSea collections" target="_blank">
-            <img src="opensea.svg" alt="Hi-Draw-NFT">
-        </a>
+<body class="bg-black text-white overflow-x-hidden">
+    <div id="countdown-popup">
+        <div class="absolute  inset-0 bg-black/80" id="popup-overlay"></div>
         
-    </div>
+        <div class="relative glass-modal rounded-xl p-6 md:p-8 max-w-xl w-full transform transition-all border-b-4 border-blue-500 overflow-y-auto no-scrollbar">
+            <!-- Close Icon -->
+            <button id="close-x" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
 
+            <!-- Title Section with Live Timer -->
+            <div class="text-center">
+                <h3 id="p-status" class="text-blue-400 font-bold text-s uppercase tracking-[0.2em] mb-3 pt-4">Initialing Countdown...</h3>
+                <div class="flex flex-wrap justify-center gap-2 text-white font-bold text-lg md:text-xl">
+                    <div class="timer-box"><span id="y-val">0</span><p class="text-[9px] mt-1 opacity-60">YEARS</p></div>
+                    <div class="timer-box"><span id="m-val">0</span><p class="text-[9px] mt-1 opacity-60">MONTHS</p></div>
+                    <div class="timer-box"><span id="d-val">0</span><p class="text-[9px] mt-1 opacity-60">DAYS</p></div>
+                    <div class="timer-box"><span id="h-val">00</span><p class="text-[9px] mt-1 opacity-60">HRS</p></div>
+                    <div class="timer-box"><span id="min-val">00</span><p class="text-[9px] mt-1 opacity-60">MINS</p></div>
+                    <div class="timer-box"><span id="s-val">00</span><p class="text-[9px] mt-1 opacity-60">SECS</p></div>
+                </div>
+            </div>
+
+            <!-- Body Text Content -->
+<div class="text-center mb-3 mt-3" dir="ltr">
+    <!-- تیتر اصلی با تغییر رنگ زنده -->
+    <h2 class="animated-text text-lg mb-3">
+        Welcome to the World’s First <br>
+        <span>Perpetual On-Chain</span>
+        <span class="txt-type" data-wait="2700" data-words='[" TX Draws","Free Draws"]'></span>
+    </h2>
+
+    <div class="text-white text-md leading-7 space-y-4">
+        <!-- بخش نکته اصلی (انگلیسی) -->
+        <p class="font-semibold">
+            🚀 <span class="text-yellow-400">One Transaction = Infinite Winnings ♾️</span><br>
+            Your TX-ID stays on the blockchain <span class="blink text-yellow-400">FOREVER</span>
+        </p>
+
+        <hr class="border-gray-600 my-2">
+
+        <!-- بخش راهنمای سریع (فارسی/انگلیسی ترکیبی) -->
+        <div class="text-sm space-y-2 text-gray-300">
+            <p><strong class="text-white">+ ADD WALLET</strong>
+                <br>to register for <span class="text-green-500">FREE DRAW</span></p>
+                <br>
+            <p><strong>MAKE TX (Buy & Sell)</strong>
+                <br>Every move is a new chance to win</p>
+                <br>
+            <p><strong>Trade On-Chain</strong>
+                <br>List gifts instantly or hold for high value</p>
+        </div>
+
+        <!-- شعار نهایی -->
+        <p class="text-xs italic text-blue-300">
+            "The coffee is gone in 10 minutes, but your luck stays forever"
+        </p>
+    </div>
 </div>
 
+
+            <button id="close-btn-main" class="w-full bg-white hover:bg-red-700 hover:text-white text-black py-3 text-md transition-all">
+                ✅ I Read & understood
+            </button>
+        </div>
+    </div>
+<body>
+<div id="global-tooltip"></div>
+<!--######################## MAIN HEADER ################################################ MAIN HEADER ########################################################################-->
+<div class="container">
+<header class="main-header">
+    <h1 class="project-title">
+        <a href="" style="text-decoration: none;" target="_blank" title="Hi Draw NFT HOME">
+            <span style="color: #00ff00;" class="blink">●</span><span style="color: #ffffff;">Hi-Draw-NFT</span>
+        </a>
+    </h1>
+<!--######################## MAIN HEADER BTN ################################################ MAIN HEADER BTN ########################################################################-->
+    <div class="header-buttons">
+        <a href="https://discord.gg/wtHj78mD2W" class="double-button" title="HDNFT Discord Server" aria-label="Discord" alt="Hi-Draw-NFT Discord Server" target="_blank" rel="noopener noreferrer">
+            <img src="discord.svg" alt="Discord Icon">
+        </a>
+            <a href="https://t.me/Hi_Draw_NTF" class="double-button" title="HDNFT Telegram Channel" aria-label="Telegram" alt="Hi-Draw-NFT Telegram Channel" target="_blank" rel="noopener noreferrer">
+                <img src="telegram.svg" alt="Telegram Icon">
+            </a>
+                <a href="https://opensea.io/0x840753e7c047ca8c5931b78608713050041abf66/created" class="double-button" title="HDNFT OpenSea collections" aria-label="OpenSea" alt="Hi-Draw-NFT OpenSea collections" target="_blank" rel="noopener noreferrer">
+                    <img src="opensea.svg" alt="Hi-Draw-NFT">
+                </a>
+    </div>
+</header>
+
+<body class="bg-black text-white">
+<div class="container mx-auto px-4 py-10">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-500 mb-2">Transaction Search</h1>
+            <p class="text-gray-500">Enter your wallet address to find winning records.</p>
+        </header>
+
+        <div class="search-wrapper">
+            <input type="text" id="walletInput" class="search-input" placeholder="0x..." autocomplete="off">
+            <button id="searchBtn" class="search-icon-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+        </div>
+        
+        <!-- Local File Warning -->
+        <div id="local-warning" class="hidden max-w-lg mx-auto mt-4 p-4 bg-yellow-900/20 border border-yellow-700/50 rounded-lg text-yellow-200 text-sm text-center">
+            ⚠️ You are running this file locally. Browsers may block loading the CSV file due to security policies (CORS).<br>
+            Please use a local server (e.g., VS Code Live Server) or upload to a host.
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="overlay" class="modal-overlay"></div>
+    <div id="modal" class="modal-content">
+        <div class="modal-header">
+            <div>
+                <h3 class="text-lg font-bold text-white">Search Results</h3>
+                <div id="summary-text" class="text-xs text-gray-400 mt-1">Found 0 records</div>
+            </div>
+            <button id="closeBtn" class="text-gray-500 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <div id="results-container" class="results-body custom-scrollbar">
+            <!-- Results injected here -->
+        </div>
+    </div>
 <!--######################## SUBTITLE AND NFT ################################################ Hi-VII ########################################################################-->
 <div class="info-carousel-wrapper">
     <div class="info-column">
@@ -1017,7 +1276,7 @@ body {
 
 <form id="walletForm">
     <div title="+ ADD ETHEREUM ADDRESS" class="relative w-full mb-1">
-            <input type="text" id="walletAddress" placeholder="Enter Wallet Address 0x..." 
+            <input type="text" id="walletAddress" aria-label="Ethereum Wallet Address Input" placeholder="Enter Wallet Address 0x..." 
                 class="terminal-input pr-10" required pattern="^0x[a-fA-F0-9]{40}$" autocomplete="off">
                     <button type="button" id="pasteBtn" class="absolute right-1 bottom-0 transform -translate-y-1/4 text-gray-500 hover:text-green-500 transition-colors" title="Paste from Clipboard">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1191,14 +1450,9 @@ body {
         </a>
 
     <button id="toggle-list-btn" class="moles-btn">
-            <!-- متن اولیه دکمه برای اعمال تنظیمات شما -->
             <span>Show More Colls.IV V VI</span>
         </button>
 
-        <!--
-        ##################### محتوای پنهان شده (Hidden Content) #####################
-        Coll.IV تا Coll.X باید *درون* این تگ قرار بگیرند.
-        -->
         <div id="hidden-collections" style="display: none;">
 <!--######################## Coll.IV ################################################ Hi-IV ########################################################################-->
     <div class="data-row">
@@ -1338,14 +1592,14 @@ body {
         <a href="https://t.me/Hi_Draw_NTF", class="footer-btn" target="_blank">Telegram</a>
 </div>
 <!--######################## MAIN FOOTER ################################################ MAIN FOOTER ########################################################################-->
-<div class="footer">
+<footer class="footer">
         © 2025 Hi-Draw-NFT Ecosystem<br><br>
             <a href="https://opensea.io/0x840753e7c047ca8c5931b78608713050041abf66" style="text-decoration: none;" target="_blank">
                 <span style="color: #00ff00;" class="blink">{</span><span class="animated-text">Hi-Draw-NFT</span><span style="color: #00ff00;" class="blink">}</span>
                 <br>
             </a>
     </div>
-</div>
+</footer>
 
 
 <!--######################## POPUP OVERLAY SETTINGS ################################################ POPUP OVERLAY SETTINGS ########################################################################-->
@@ -1362,12 +1616,9 @@ body {
 </div>
 
 <script>
-    // ******************************************************
-    // لینک اسکریپت گوگل خود را دقیقاً در خط زیر جایگزین کنید
-    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_azf1ye5p8Ty0sDHLMA21vHA6dTPi5Up1aAIt6xkLEp7-hka9sRjbdOk1aXo0ccbe/exec"; 
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_azf1ye5p8Ty0sDHLMA21vHA6dTPi5Up1aAIt6xkLEp7-hka9sRjbdOk1aXo0ccbe/exec"; 
     // ******************************************************
 
-    // توابع نمایش پاپ‌آپ (دقیقاً مشابه قبل)
     function showStatusPopup(id, message = null) {
         const popup = document.getElementById(id);
         if (message && id === 'errorPopup') {
@@ -1394,12 +1645,10 @@ body {
         document.getElementById('buttonText').textContent = isLoading ? '' : '+ ADD WALLET';
     }
 
-    // تابع اعتبارسنجی آدرس
     function isAddressValid(address) {
         return /^0x[a-fA-F0-9]{40}$/.test(address);
     }
 
-    // تابع اصلی ارسال به گوگل شیت
     function addWallet(address) {
         const cleanAddress = address.trim().toLowerCase();
 
@@ -1410,7 +1659,6 @@ body {
 
         toggleLoading(true);
 
-        // ارسال درخواست به گوگل شیت
         fetch(GOOGLE_SCRIPT_URL, {
             method: "POST",
             body: JSON.stringify({ walletAddress: cleanAddress }),
@@ -1420,7 +1668,7 @@ body {
             toggleLoading(false);
             if (data.result === "success") {
                 showStatusPopup('successPopup');
-                document.getElementById('walletAddress').value = ''; // پاک کردن ورودی
+                document.getElementById('walletAddress').value = '';
             } else if (data.message === "Duplicate Address") {
                 showStatusPopup('errorPopup', 'Error This Address Is Already Registered');
             } else {
@@ -1434,7 +1682,6 @@ body {
         });
     }
 
-    // گوش دادن به دکمه ارسال
     document.getElementById('walletForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const addressInput = document.getElementById('walletAddress');
@@ -1446,9 +1693,7 @@ body {
     if (pasteBtn) {
         pasteBtn.addEventListener('click', async () => {
             try {
-                // خواندن متن از کلیپ‌بورد
                 const text = await navigator.clipboard.readText();
-                // قرار دادن متن در کادر ورودی
                 document.getElementById('walletAddress').value = text;
             } catch (err) {
                 console.error('Failed to read clipboard', err);
@@ -1461,8 +1706,8 @@ body {
         const track = document.getElementById('track');
             const prevBtn = document.getElementById('prevBtn');
                 const nextBtn = document.getElementById('nextBtn');
-                    const itemWidth = 56; // عرض هر مربع
-                        const gap = 1;       // فاصله بین مربع‌ها
+                    const itemWidth = 56;
+                        const gap = 1;
                             const totalMove = itemWidth+itemWidth+itemWidth;
 
 
@@ -1534,26 +1779,18 @@ body {
 
     // --- GLOBAL POPUP CLICK LISTENER (FIXED) ---
     document.addEventListener('click', (e) => {
-        // پیدا کردن نزدیک‌ترین لینک
         const link = e.target.closest('a');
         
-        // اگر کلیک روی لینک بود
         if (link) {
             const href = link.getAttribute('href');
             const hasPopupData = link.dataset.popupTitle;
 
-            // شرط اصلاح شده:
-            // اگر لینک آدرس معتبر دارد (خالی نیست، شارپ نیست، نال نیست)
-            // باید اجازه دهیم به طور طبیعی کار کند (return).
-            // پاپ‌آپ فقط زمانی فعال می‌شود که لینک "خالی" باشد.
             if (href && href !== "" && href !== "#" && href !== "javascript:void(0)") {
-                // لینک معتبر است، هیچ کاری نکن و بگذار مرورگر آن را باز کند
                 return;
             }
 
-            // اگر لینک خالی بود و دیتای پاپ‌آپ داشت
             if (hasPopupData) {
-                e.preventDefault(); // جلوگیری از پرش به بالای صفحه
+                e.preventDefault();
                 let title = link.dataset.popupTitle || "NOTE!";
                 let body = link.dataset.popupBody || "Not Available<br>Check Back Later";
                 showPopup(title, body);
@@ -1585,9 +1822,6 @@ body {
                 this.txt = fullTxt.substring(0, this.txt.length + 1);
             }
 
-            // ** تغییر مهم: حذف استایل رنگ سبز دستی برای اجازه دادن به انیمیشن CSS **
-            // قبلاً: style="color: #00ff00;"
-            // حالا: بدون style color، تا از کلاس .animated-text ارث ببرد
             this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
 
             let typeSpeed = 15;
@@ -1632,37 +1866,22 @@ body {
         const hiddenContent = document.getElementById('hidden-collections');
         const button = document.getElementById('toggle-list-btn');
         const container = document.getElementById('collection-list-container');
-        const buttonTextSpan = button.querySelector('span'); // برای تغییر متن دکمه
+        const buttonTextSpan = button.querySelector('span');
 
         if (hiddenContent.style.display === 'none') {
-            // حالت Show More (نمایش محتوا)
-            
-            // 1. نمایش محتوای پنهان
             hiddenContent.style.display = 'block'; 
 
-            // 2. تغییر متن دکمه
             buttonTextSpan.textContent = 'Show Less Colls';
 
-            // 3. انتقال دکمه به انتهای کل محتوا (بعد از hidden-collections)
-            // با استفاده از appendChild، دکمه از جایگاه فعلی اش به انتهای container منتقل می شود
             container.appendChild(button);
 
         } else {
-            // حالت Show Less (پنهان کردن محتوا)
-            
-            // 1. پنهان کردن محتوا
             hiddenContent.style.display = 'none';
-
-            // 2. تغییر متن دکمه
             buttonTextSpan.textContent = 'Show More Colls.IV V VI';
-
-            // 3. انتقال دکمه به انتهای بخش نمایش داده شده (یعنی قبل از hidden-collections)
-            // از متد insertBefore استفاده می کنیم تا دکمه را قبل از hiddenContent قرار دهیم.
             container.insertBefore(button, hiddenContent);
         }
     }
 
-    // اضافه کردن شنونده رویداد
     document.addEventListener('DOMContentLoaded', () => {
         const button = document.getElementById('toggle-list-btn');
         if (button) {
@@ -1670,42 +1889,34 @@ body {
         }
     });
 
-    // --- منطق جدید کاروسل و تولید آدرس‌های داینامیک ---
-
-    // تابعی برای تولید یک عدد صحیح تصادفی در یک رنج مشخص
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
-        // max را شامل نمی‌شود، اما در اینجا چون توکن آیدی است، می‌خواهیم max را شامل شود.
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // پیکربندی کالکشن‌ها
-    // برای اضافه کردن کالکشن‌های جدید (Hi-II, Hi-III و غیره)، فقط یک شیء جدید به این آرایه اضافه کنید.
 const collectionConfigs = [
         {
             name: "Hi-I",
             baseUrl: "https://opensea.io/item/polygon/0x2665f96253f23e85e4937798e1cdeb24136e4ddf/",
-            count: 2000, // تعداد آیتم‌هایی که در کاروسل برای این کالکشن نمایش داده می‌شوند
+            count: 2000,
             minTokenId: 0,
             maxTokenId: 11999,
             title: "Make TX # Win Always"
         },
         /*
-        // مثال برای کالکشن بعدی (Hi-II)
+        //  (Hi-II)
         {
             name: "Hi-II",
-            baseUrl: "https://opensea.io/item/polygon/0x...address_for_hi_ii.../", // توجه: باید آدرس قرارداد جدید باشد
-            count: 15, // تعداد آیتم‌های Hi-II
+            baseUrl: "https://opensea.io/item/polygon/0x...address_for_hi_ii.../", // 
+            count: 15, //  Hi-II
             minTokenId: 1,
             maxTokenId: 1000,
             title: "Hi-II Collection"
         },
-        // می‌توانید هر تعداد کالکشن دیگر اضافه کنید...
         */
     ];
 
-    // تابعی برای تولید لیست نهایی NFT از روی پیکربندی‌ها
     function generateNftData(configs) {
         const generatedData = [];
         configs.forEach(config => {
@@ -1721,23 +1932,21 @@ const collectionConfigs = [
         return generatedData;
     }
     
-    // اجرای منطق کاروسل پس از بارگذاری کامل DOM
+
     document.addEventListener('DOMContentLoaded', () => {
         const track = document.getElementById('track');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         
         // تنظیمات کاروسل
-        const itemWidth = 56; // عرض هر مربع (به پیکسل)
-        const gap = 16;       // فاصله بین مربع‌ها (بر اساس 1rem در CSS که 16 پیکسل است)
-        const totalMove = itemWidth + gap; // میزان حرکت برای یک آیتم
+        const itemWidth = 56;
+        const gap = 16;
+        const totalMove = itemWidth + gap;
 
-        let position = 0; // موقعیت فعلی کاروسل
+        let position = 0;
         
-        // 1. تولید داده‌های NFT
         const nftData = generateNftData(collectionConfigs);
 
-        // 2. رندر کردن آیتم‌های NFT
         if (track) {
             nftData.forEach((item) => {
                 const link = document.createElement('a');
@@ -1750,59 +1959,46 @@ const collectionConfigs = [
             });
         }
 
-        // 3. منطق پیمایش (Navigation Logic)
 document.addEventListener('DOMContentLoaded', () => {
         const track = document.getElementById('track');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const carouselViewport = document.querySelector('.carousel-viewport');
 
-        // محاسبه دقیق ریاضی برای جلوگیری از تیک زدن
-        // عرض باکس (56) + فاصله گپ (1) = 57 پیکسل
         const itemWidth = 56; 
         const gap = 1;       
-        const step = itemWidth + gap; // میزان حرکت دقیق: 57px
+        const step = itemWidth + gap;
 
         let isTransitioning = false;
         let autoPlayInterval;
 
-        // حرکت به راست (Next)
         function moveRight() {
             if (isTransitioning) return;
             isTransitioning = true;
 
-            // اعمال انیمیشن حرکت
             track.style.transition = 'transform 0.3s ease-in-out';
             track.style.transform = `translateX(-${step}px)`;
 
-            // پس از اتمام انیمیشن، المان اول به آخر منتقل می‌شود
             setTimeout(() => {
-                track.style.transition = 'none'; // حذف انیمیشن برای جابجایی مخفی
-                track.appendChild(track.firstElementChild); // انتقال اولین آیتم به انتهای صف
-                track.style.transform = 'translateX(0)'; // ریست کردن موقعیت
+                track.style.transition = 'none';
+                track.appendChild(track.firstElementChild);
+                track.style.transform = 'translateX(0)';
                 
-                // آزادسازی برای کلیک بعدی
                 setTimeout(() => { isTransitioning = false; }, 50);
-            }, 300); // این عدد باید با مدت زمان transition (0.3s) هماهنگ باشد
+            }, 300);
         }
 
-        // حرکت به چپ (Prev)
         function moveLeft() {
             if (isTransitioning) return;
             isTransitioning = true;
 
-            // 1. ابتدا انیمیشن را خاموش می‌کنیم
             track.style.transition = 'none';
             
-            // 2. آخرین آیتم را برمی‌داریم و به اول صف می‌چسبانیم
             track.insertBefore(track.lastElementChild, track.firstElementChild);
             
-            // 3. ترک را به اندازه یک واحد عقب می‌کشیم تا کاربر متوجه جابجایی نشود
             track.style.transform = `translateX(-${step}px)`;
 
-            // 4. یک تاخیر بسیار کوتاه برای اعمال تغییرات DOM
             setTimeout(() => {
-                // 5. حالا انیمیشن را روشن کرده و به نقطه 0 حرکت می‌کنیم
                 track.style.transition = 'transform 0.3s ease-in-out';
                 track.style.transform = 'translateX(0)';
                 
@@ -1810,10 +2006,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 20);
         }
 
-        // تنظیمات پخش خودکار
         if (carouselViewport) {
             function startAutoPlay() { 
-                stopAutoPlay(); // جلوگیری از تداخل تایمرها
                 autoPlayInterval = setInterval(moveRight, 3000); 
             }
             function stopAutoPlay() { clearInterval(autoPlayInterval); }
@@ -1821,7 +2015,6 @@ document.addEventListener('DOMContentLoaded', () => {
             carouselViewport.addEventListener('mouseenter', stopAutoPlay);
             carouselViewport.addEventListener('mouseleave', startAutoPlay);
             
-            // پشتیبانی از لمس موبایل برای توقف
             carouselViewport.addEventListener('touchstart', stopAutoPlay);
             carouselViewport.addEventListener('touchend', startAutoPlay);
 
@@ -1839,10 +2032,244 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     });
+
+        (function() {
+            const popup = document.getElementById('countdown-popup');
+            const targetDate = new Date(2026, 0, 0, 0, 0, 0); // 2025-12-25 00:00:00
+
+            function showPopup() {
+                popup.style.display = 'flex';
+                document.body.classList.add('modal-open');
+            }
+
+            function hidePopup() {
+                popup.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+
+            document.getElementById('close-x').onclick = hidePopup;
+            document.getElementById('popup-overlay').onclick = hidePopup;
+            document.getElementById('close-btn-main').onclick = hidePopup;
+
+            function updateClock() {
+                const now = new Date();
+                let diff = targetDate - now;
+                let isPast = false;
+
+                if (diff < 0) {
+                    isPast = true;
+                    diff = Math.abs(diff);
+                    document.getElementById('p-status').innerText = "Time elapsed since the start of the draws";
+                    document.getElementById('p-status').style.color = "#4ade80"; // Green
+                } else {
+                    document.getElementById('p-status').innerText = "Time left until the start of the draws";
+                    document.getElementById('p-status').style.color = "#ff0000";
+                }
+
+                let start = isPast ? targetDate : now;
+                let end = isPast ? now : targetDate;
+
+                let years = end.getFullYear() - start.getFullYear();
+                let months = end.getMonth() - start.getMonth();
+                let days = end.getDate() - start.getDate();
+
+                if (days < 0) {
+                    months--;
+                    const daysInPrevMonth = new Date(end.getFullYear(), end.getMonth(), 0).getDate();
+                    days += daysInPrevMonth;
+                }
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
+                const totalSecs = Math.floor(diff / 1000);
+                const h = Math.floor((totalSecs / 3600) % 24);
+                const m = Math.floor((totalSecs / 60) % 60);
+                const s = Math.floor(totalSecs % 60);
+
+                document.getElementById('y-val').innerText = years;
+                document.getElementById('m-val').innerText = months;
+                document.getElementById('d-val').innerText = days;
+                document.getElementById('h-val').innerText = String(h).padStart(2, '0');
+                document.getElementById('min-val').innerText = String(m).padStart(2, '0');
+                document.getElementById('s-val').innerText = String(s).padStart(2, '0');
+            }
+
+            showPopup();
+            updateClock();
+            setInterval(updateClock, 1000);
+        })()
+
+const CSV_FILE = 'SiteSearch.csv';
+        
+        // CSV Column Mapping based on your file:
+        // 0: recipientAddress
+        // 1: count
+        // 4: collection
+        // 5: draw
+        // 6: date
+        const COL_ADDR = 0;
+        const COL_COUNT = 1;
+        const COL_COLL = 4;
+        const COL_DRAW = 5;
+        const COL_DATE = 6;
+
+        // === UTILITIES ===
+
+        // Function to strictly clean addresses for comparison
+        const normalizeAddr = (addr) => {
+            if (!addr) return '';
+            // Remove BOM, quotes, whitespace, and convert to lowercase
+            let clean = addr.replace(/[\uFEFF"'\s]/g, '').toLowerCase().trim();
+            // Remove '0x' prefix for safer comparison (optional but recommended)
+            if (clean.startsWith('0x')) clean = clean.substring(2);
+            return clean;
+        };
+
+        const formatNumber = (num) => {
+            return new Intl.NumberFormat().format(num);
+        };
+
+        // === MAIN LOGIC ===
+
+        async function handleSearch() {
+            const inputEl = document.getElementById('walletInput');
+            const btn = document.getElementById('searchBtn');
+            const originalBtnIcon = btn.innerHTML;
+            const rawInput = inputEl.value.trim();
+
+            if (rawInput.length < 10) {
+                alert("Please enter a valid full wallet address.");
+                return;
+            }
+
+            // UI Loading State
+            btn.innerHTML = '<div class="spinner"></div>';
+            btn.disabled = true;
+
+            const targetAddr = normalizeAddr(rawInput);
+            console.log("Searching for (normalized):", targetAddr);
+
+            try {
+                // Fetch with timestamp to avoid caching
+                const response = await fetch(`${CSV_FILE}?t=${new Date().getTime()}`);
+                
+                if (!response.ok) throw new Error("File not found or CORS blocked");
+                
+                const text = await response.text();
+                const lines = text.split(/\r\n|\n/); // Handle Windows & Unix line endings
+
+                let matches = [];
+                let totalTokens = 0;
+
+                // Loop through lines (Skipping header row 0)
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i];
+                    if (!line || line.trim() === '') continue;
+
+                    // Split CSV by comma
+                    // NOTE: This assumes no commas INSIDE the data fields. 
+                    // Given your file sample, this is safe.
+                    const cols = line.split(',');
+
+                    if (cols.length < 5) continue; // Skip malformed lines
+
+                    // Get address from column 0
+                    const rowAddr = normalizeAddr(cols[COL_ADDR]);
+
+                    // Exact Match Check
+                    if (rowAddr === targetAddr) {
+                        const count = parseInt(cols[COL_COUNT]) || 0;
+                        totalTokens += count;
+                        
+                        matches.push({
+                            count: count,
+                            collection: cols[COL_COLL] || 'N/A',
+                            draw: cols[COL_DRAW] || 'N/A',
+                            date: cols[COL_DATE] || 'N/A'
+                        });
+                    }
+                }
+
+                renderResults(matches, totalTokens);
+
+            } catch (error) {
+                console.error(error);
+                if (window.location.protocol === 'file:') {
+                    alert("⚠️ Error: Cannot read CSV file in local mode due to browser security.\n\nPlease use a local server (VS Code Live Server) or upload to GitHub Pages.");
+                } else {
+                    alert("Error loading data: " + error.message);
+                }
+            } finally {
+                btn.innerHTML = originalBtnIcon;
+                btn.disabled = false;
+            }
+        }
+
+        function renderResults(matches, totalTokens) {
+            const container = document.getElementById('results-container');
+            const overlay = document.getElementById('overlay');
+            const modal = document.getElementById('modal');
+            const summary = document.getElementById('summary-text');
+
+            container.innerHTML = '';
+
+            if (matches.length === 0) {
+                summary.innerText = "No records found";
+                container.innerHTML = `
+                    <div class="flex flex-col items-center justify-center py-10 text-gray-500">
+                        <svg class="w-12 h-12 mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <p>No transactions found for this address.</p>
+                    </div>
+                `;
+            } else {
+                summary.innerHTML = `<span class="text-blue-400 font-bold">${matches.length} Records</span> found | Total Wins: <span class="text-green-400 font-bold">${formatNumber(totalTokens)} Tokens</span>`;
+                
+                matches.forEach(match => {
+                    const el = document.createElement('div');
+                    el.className = 'result-card';
+                    el.innerHTML = `
+                        <div class="flex flex-col">
+                            <span class="text-white font-semibold text-sm">${match.collection.replace(/"/g, '')}</span>
+                            <span class="text-xs text-gray-500">${match.date.replace(/"/g, '')} • ${match.draw.replace(/"/g, '')}</span>
+                        </div>
+                        <div class="flex items-center bg-green-900/20 px-3 py-1 rounded border border-green-800/50">
+                            <span class="text-green-400 font-bold text-sm">+${match.count}</span>
+                        </div>
+                    `;
+                    container.appendChild(el);
+                });
+            }
+
+            overlay.style.display = 'block';
+            modal.style.display = 'block';
+        }
+
+        // === EVENT LISTENERS ===
+        
+        document.getElementById('searchBtn').addEventListener('click', handleSearch);
+        
+        document.getElementById('walletInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+
+        const closeModal = () => {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+        };
+
+        document.getElementById('closeBtn').addEventListener('click', closeModal);
+        document.getElementById('overlay').addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+
+        // Check for Local File execution
+        if (window.location.protocol === 'file:') {
+            document.getElementById('local-warning').classList.remove('hidden');
+        }
 </script>
 
 </body>
 
 
 </html>
-
