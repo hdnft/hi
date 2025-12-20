@@ -2206,17 +2206,63 @@ const CSV_FILE = 'SiteSearch.csv';
             const modal = document.getElementById('modal');
             const summary = document.getElementById('summary-text');
 
-            container.innerHTML = '';
+summary.innerText = "Luck is Warming Up...";
 
-            if (matches.length === 0) {
-                summary.innerText = "No Wins found";
-                container.innerHTML = `
-                    <div class="flex flex-col items-center justify-center py-10 text-gray-500">
-                        <svg class="w-12 h-12 mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <p>Haven't won yet?</p><br>
-                        <p>You can add wallet transactions to increase your chances</p><br>
-                        <p>You can also add a new wallet right now</p>
-                    </div>
+container.innerHTML = `
+    <div class="flex flex-col items-center justify-center py-6 px-4 text-center space-y-6" dir="ltr">
+        
+        <!-- انیمیشن آیکون برای جلب توجه -->
+        <div class="relative">
+            <div class="absolute inset-0 bg-yellow-500/20 blur-xl rounded-full animate-pulse"></div>
+            <svg class="w-16 h-16 text-yellow-500 relative z-10 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-xl font-bold text-white tracking-tight">
+                Haven't won <span class="text-red-500">YET?</span>
+            </h3>
+            <p class="text-gray-400 text-sm italic">"The engine is running, your TXs are just waiting for their turn!"</p>
+        </div>
+
+        <!-- بخش اقدامات اصلی با طراحی کارتی -->
+        <div class="w-full grid grid-cols-1 gap-4 mt-2">
+            
+            <!-- گزینه ۱: تراکنش (افزایش شانس تصاعدی) -->
+            <div class="bg-gradient-to-r from-gray-800 to-gray-900 border border-yellow-500/30 p-4 rounded-xl shadow-lg transform transition hover:scale-[1.02]">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">BOOM #1</span>
+                    <h4 class="text-yellow-400 font-semibold">Ignite Your Luck Engine</h4>
+                </div>
+                <p class="text-xs text-gray-300 leading-relaxed text-left">
+                    <span class="text-white font-bold underline">Higher TX Value = Explosive Multiplier!</span><br>
+                    Every Buy/Sell creates a permanent ID. More volume means you move to the 
+                    <span class="text-yellow-500 font-bold">Golden List</span> for massive gift floods.
+                </p>
+            </div>
+
+            <!-- گزینه ۲: کیف پول جدید (ثبت‌نام رایگان همیشگی) -->
+            <div class="bg-gradient-to-r from-gray-800 to-gray-900 border border-green-500/30 p-4 rounded-xl shadow-lg transform transition hover:scale-[1.02]">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">BOOM #2</span>
+                    <h4 class="text-green-400 font-semibold">Multiply Your Presence</h4>
+                </div>
+                <p class="text-xs text-gray-300 leading-relaxed text-left">
+                    <span class="text-white font-bold">+ ADD NEW WALLET</span> to register for the 
+                    <span class="text-green-500 font-bold">FREE DRAW</span>. 
+                    One account is good, multiple wallets are an <span class="blink text-green-400">Infinite Loop</span> of chances!
+                </p>
+            </div>
+        </div>
+
+        <!-- شعار ترغیب‌کننده نهایی -->
+        <div class="pt-4">
+            <p class="text-blue-300 text-[10px] uppercase tracking-[0.2em] font-medium animate-pulse">
+                One Transaction • Infinite Winnings • Forever On-Chain
+            </p>
+        </div>
+    </div>
                 `;
             } else {
                 summary.innerHTML = `<span class="text-blue-400 text-md font-bold">${matches.length} Wins</span> found<br>Total Wins <span class="text-green-400 font-bold">${formatNumber(totalTokens)} NFTs</span>`;
@@ -2268,4 +2314,5 @@ const CSV_FILE = 'SiteSearch.csv';
 
 
 </html>
+
 
