@@ -1,0 +1,2743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hi-I TX-DRAW | Perpetual On-Chain Lottery & Rewards on Polygon-WETH</title>
+
+        <meta name="description" content="Hi-I TX-DRAW is a perpetual on-chain liquidity engine on Polygon. Win NFTs daily via Transaction Mining (TX Draw) and Free Registration. Fair, transparent, and immutable rewards.">
+        <meta name="keywords" content="NFT, Polygon, Crypto Lottery, Web3, Smart Contract, Free NFT, Airdrop, On-chain Draw, Hi Draw NFT, Ethereum">
+        <meta name="author" content="Hi-Draw-NFT Team">
+        <meta name="robots" content="index, follow">
+
+        <link rel="icon" type="image/svg" href="favicon.svg">
+        <script src="https://cdn.tailwindcss.com"></script>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Hi Draw NFT",
+        "applicationCategory": "DecentralizedApplication",
+        "operatingSystem": "Polygon Blockchain",
+        "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "ETH"
+      },
+      "description": "A perpetual on-chain drawing system rewarding users with NFTs based on transaction history and free registration."
+    }
+</script>
+
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+
+    body, html, * {
+            font-family: 'Courier New', Courier, monospace !important;
+        }
+
+        #countdown-popup {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .glass-modal {
+            background: #1a1a1a;
+            backdrop-filter: blur(15px);
+            max-height: 75vh; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .timer-box {
+            background: rgba(139, 139, 139, 0.356);
+            padding: 5px;
+            min-width: 65px;
+            text-align: center;
+        }
+        
+        .modal-open {
+            overflow: hidden;
+    }
+
+:root {
+    --color-1: #00ff00;
+    --color-2: #ffff00;
+    --color-3: #ff6600;
+    --color-4: #ff0000;
+}
+
+body {
+    background-color: #000000;
+        color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+                margin: 0;
+                    padding: 12px;
+                        display: flex;
+                            justify-content: center;
+                                align-items: flex-start;
+                                    min-height: 100vh;
+    }
+
+.container {
+    max-width: 900px;
+        width: 100%;
+            border: 3px solid #ffffff;
+                padding: 10px;
+                    position: relative;
+                        box-shadow: 6px 6px 0px #3a3a3a;
+                            overflow: hidden;
+                                padding-top: 1px;
+    }
+
+.main-header {
+    display: flex;
+        justify-content: space-between;
+            align-items: center;
+                border-bottom: 5px double #fff;
+                        margin-bottom:3px;
+    }
+
+.project-title {
+        font-size: 1.75rem;
+            letter-spacing: -0.3px;
+                word-spacing: -35%;
+                margin-bottom: -1px;
+    }            
+
+.header-buttons {
+    display: flex;
+        gap: 12px;
+            flex-shrink: 0;
+
+    }
+
+.info-carousel-wrapper {
+    display: flex;
+        justify-content: space-between;
+            align-items: stretch;
+                    gap: 10px;
+                        flex-wrap: wrap;
+    }
+
+.info-column {
+    display: flexbox;
+        flex: 0 0 auto;
+            text-align: center;
+                align-items: center;
+                    min-width: 175px;
+    }
+
+.carousel-column {
+    flex: 3;
+        min-width: 185px;
+            display: flex;
+                align-items: center;
+                    justify-content: flex;
+                        border: none;
+                            padding-bottom: 8px;
+    }
+
+.carousel-btn {
+    background: transparent;
+        border: none;
+            color: #ffffff;
+            font-size: 1.4rem;
+                cursor: pointer;
+                    padding: 0 1%;
+                        margin-bottom: 2px;
+                            z-index: 2;
+                                transition: color 0.1s;
+                                    user-select: none;
+    }
+
+.carousel-btn:hover {
+    color: #00ff00;
+    }
+
+.carousel-viewport {
+    overflow: hidden;
+        width: 100%;
+            position: relative;
+    }
+
+.carousel-track {
+    display: flex;
+        gap: 1px;
+            transition: transform 0.01s ease-in-out;
+    }
+.nft-square {
+    width: 56px;
+        height: 56px;
+            min-width: 56px;
+                border: transparent;
+                    display: flex;
+                        justify-content: center;
+                            align-items: center;
+                            text-align: center;
+                                font-size: 0.75rem;
+                                    color: #000000;
+                                        text-decoration: none;
+                                            transition: 0.1s;
+                                                background: #ffffff;
+    }
+
+.nft-square:hover {
+    background: #000000;
+        color: #ffffff;
+            cursor: pointer;
+                transition: transform 0.1s;
+    }
+
+.subtitle {
+    font-size: 0.8rem;
+        letter-spacing: 0px;
+            word-spacing: -35%;
+                padding-bottom: 1px;
+                    margin-top: 1px;
+                        margin-bottom: 1px; 
+                            color: #00ff00;
+    }
+
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9); 
+    z-index: 1000;
+}
+.general-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background-color: #000000;
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+    z-index: 1001; 
+    padding: 15px;
+    font-size: 0.9rem;
+}
+.popup-header {
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ff0000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.close-btn {
+    background: none;
+    border: none;
+    color: #ff0000;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 5px;
+    font-weight: bold;
+}
+.popup-body {
+    color: #ffffff;
+}
+.hidden {
+    display: none !important;
+}
+
+.data-box {
+    border: none;
+            margin-top: 0px;
+                padding-top: 0px;
+                    padding-bottom: 0px;
+                        margin-bottom: 1px;
+                            font-size: 0.95rem;
+    }
+
+.data-row {
+    display: flex;
+        word-spacing: -4px;
+            justify-content: space-between;
+                margin-bottom: 0px;
+                        font-size: 1rem;
+    }
+
+.btn {
+    display: block;
+        width: 100;
+            padding: 12.5px;
+                margin-bottom: 5px;
+                    background: none;
+                        color: #ffffff;
+                            text-decoration: none;
+                                text-align: center;
+                                    border: 1px solid #ffffff;
+                                        transition: 0.1s;
+                                            cursor: pointer;
+    }
+
+.btn-pop {
+    display: inline-block;
+        width: 72%;
+            padding: 12px;
+                margin-bottom: 5px;
+                    background: transparent;
+                        color: #ffffff;
+                            text-decoration: none;
+                                text-align: center;
+                                    border: #ffffff solid 2px;
+                                        transition: 0.1s;
+                                            cursor: pointer;
+    }
+
+.btn-pop:hover {
+    background: #ffffff;
+        color: #000000;
+            font-weight: bold;
+            box-shadow: 0 0 5px #ffffff;
+                transition: 0.1s;
+                        border: #ffffff solid 2px
+    }
+
+.lv-btn {
+    display: block;
+        font-family: 'Courier New', Courier, monospace;
+            background: #00ff00;
+                color: #000000;
+                    text-decoration: none;
+                        text-align: center;
+                                font-size: 1.1rem;
+                                    transition: 0.1s;
+                                        cursor: pointer;
+                                            padding-bottom: 3px;
+                                                padding-top: 4px;
+    }
+
+.lv-btn:hover {
+    background: #ff0000;
+        color: #ffffff;
+                transition: 0.1s;
+    }
+
+.col-btn {
+    display: block;
+        font-family: 'Courier New', Courier, monospace;
+            background: #ffffff;
+                color: #000000;
+                    text-decoration: none;
+                        text-align: center;
+                                font-size: 1.1rem;
+                                    transition: 0.1s;
+                                        cursor: pointer;
+                                            padding-bottom: 3px;
+                                                padding-top: 4px;
+                                                    margin-top: 15px;
+                                                    margin-bottom: 10px;
+    }
+
+.col-btn:hover {
+    background: #ff0000;
+        color: #ffffff;
+                transition: 0.1s;
+    }
+
+.how-btn {
+    display: block;
+        font-family: 'Courier New', Courier, monospace;
+            background: #fff000;
+                color: #000000;
+                    text-decoration: none;
+                        text-align: center;
+                                font-size: 1.1rem;
+                                    transition: 0.1s;
+                                        cursor: pointer;
+                                            padding-bottom: 3px;
+                                                padding-top: 4px;
+    }
+
+.how-btn:hover {
+    background: #ff0000;
+        color: #ffffff;
+                transition: 0.1s;
+    }
+
+.moles-btn {
+    display: block;
+        min-width: 100%;
+        font-family: 'Courier New', Courier, monospace;
+            background: #ff0000;
+                color: #fff000;
+                    text-decoration: none;
+                        text-align: center;
+                                font-size: 1.1rem;
+
+                                    transition: 0.1s;
+                                        cursor: pointer;
+                                            padding-bottom: 3px;
+                                                padding-top: 4px;
+                                                    margin-top: 15px;
+                                                    margin-bottom: 15px;
+    }
+
+.moles-btn:hover {
+    background: #fff000;
+        color: #ff0000;
+                transition: 0.1s;
+    }
+
+.footer-btn {
+    display: block;
+        width: 32.5% ;
+            height: fit-content;
+                font-family: 'Courier New', Courier, monospace;
+                    padding-top: 6px;
+                        padding-bottom: 6px ;
+                            margin-bottom: 5px;
+                                margin-top: 5px;
+                                    background: #ffffff;
+                                        text-align: center;
+                                            text-decoration: none;
+                                                color: #000000;
+    }
+
+.footer-btn:hover {
+    background: transparent;
+        color: #818181;
+            text-shadow: #ffffff 0 0 3px;
+            transform: scale(1.1999);
+                transition: 0.1s;
+    }
+
+.btn:hover {
+    background: #ffffff;
+        color: #000000;
+            box-shadow: 0 0 7px #ffffff;
+    }
+
+.btn-primary {
+    border: 2px solid #ffffff;
+        font-size: 1.07rem;
+    }
+
+.btn-primary:hover {
+        background: #ffffff;
+        color: #000000;
+            box-shadow: 0 0 7px #ffffff;
+    }
+
+.btn-box {
+    margin-bottom: 20px;
+    }
+
+.footer {
+    font-weight: bolder;
+        margin-top: 23px;
+            font-size: 0.85rem;
+                text-align: center;
+                    color: #ffffff;
+    }
+
+
+.double-button {
+    display: transparent;
+        justify-content: right;
+            align-items: right;
+                padding: 4px;
+                    height: 30px;
+                        width: 30px;
+                            min-width: 30px;
+                                font-size: 0.6rem;
+                                    background: transparent; 
+                                        border: none;
+                                            text-decoration: none;
+                                                transition: transform 0.1s;
+                                                    cursor: pointer;
+
+    }
+
+.double-button:hover {
+    background: transparent;
+        box-shadow: none;
+    }
+
+.double-button:hover img {
+    filter: drop-shadow(0 0 5px #ffffff); 
+        transform: scale(1.1);
+    }
+
+.double-button svg {
+    width: 20px;
+        height: 20px;
+            fill: currentColor;
+                transition: fill 0.1s;
+    }
+
+.double-button img {
+    width: 100%;
+        height: 100%;
+            object-fit: contain;
+                transition: 0.1s;
+    }
+
+.blink {
+    animation: blinker 1.8s linear infinite;
+    }
+
+@keyframes blinker {
+    50% { opacity: 0; }
+    }
+
+@media (max-width: 440px) {
+    .info-carousel-wrapper {
+        flex-direction: column;
+            align-items: center;
+                margin-top: -5px;
+                }
+
+    .double-button {
+        margin-top: -15px;
+    }
+
+
+.info-column {
+    margin-bottom: 0px;
+    }
+
+.carousel-column {
+    width: 100%;
+        justify-content: center; 
+    }
+
+.main-header {
+    flex-direction: column;
+        align-items: center;
+            gap: 10px;
+    }
+
+.header-buttons {
+    width: 100%;
+        justify-content: space-around;
+        }
+}
+        .search-wrapper {
+            max-width: 100%;
+            margin: auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            height: 1.5rem;
+            padding: 4px 4px 4px;
+            background: #ffffff;
+            border: 1px solid;
+            border-radius: 6px;
+            color: white;
+            font-family: monospace;
+            font-size: 0.9rem;
+            color: #000000;
+            transition: all 0.1s ease;
+        }
+        .search-input:focus {
+            border-color: #00ff00;
+            outline: none;
+        }
+
+        .search-icon-btn {
+            position: absolute;
+            right: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #454647;
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: color 0.1s;
+        }
+        .search-icon-btn:hover {
+            color: #00ff00;
+        }
+
+        /* Popup Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 40;
+        }
+        .modal-content {
+            display: none;
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: #111;
+            border: 1px solid #333;
+            width: 90%;
+            max-width: 550px;
+            border-radius: 16px;
+            z-index: 50;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9);
+            overflow: hidden;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translate(-50%, -48%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #151515;
+        }
+
+        .results-body {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .result-card {
+            background: #1c1c1c;
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .spinner {
+            width: 24px; height: 24px;
+            border: 3px solid #333;
+            border-top-color: #3b82f6;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+.drawing-navigation {
+    margin: 0 0;
+    margin-bottom: 14px;
+    padding: 1px 9px 1px 9px;
+    border: 2px solid #ffffff;
+    box-shadow: 3px 3px 0px #00ff00;
+}
+
+.year-selector-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    padding: 0 5px;
+}
+
+.year-viewport {
+    overflow: hidden;
+    width: 100%;
+    margin: 0 5px;
+    position: relative;
+}
+
+.year-track {
+    display: flex;
+    gap: 1px;
+    transition: transform 0.1s ease-in-out;
+    will-change: transform;
+}
+
+.year-square {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1rem;
+    color: #000000;
+    background: #ffffff;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.1s;
+}
+
+.year-square:hover {
+    background: #ff0000;
+    color: #ffffff;
+}
+
+.year-square.selected {
+    background-color: #00ff00 !important;
+    color: #000000 !important;
+    font-weight: bold;
+    border: none; 
+}
+
+.year-square.disabled {
+    background-color: #383838;
+    color: #bdbdbd;
+    cursor: not-allowed;
+}
+
+.selector-row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px 0;
+    justify-content: center;
+}
+
+.divider {
+    text-align: center;
+    color: #00ff00;
+    font-size: 1.3rem;
+    margin: 5px 10px;
+}
+
+.nav-item {
+    font-family: 'Courier New', Courier, monospace;
+    color: #ffffff;
+    padding: 5px 4px;
+    margin: 2px 4px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: background-color 0.1s, color 0.1s, border-color 0.1s;
+    user-select: none;
+    text-decoration: none;
+    justify-content: center;
+}
+
+.nav-item:hover {
+    color: #00ff00;
+    border-color: #00ff00;
+}
+
+.nav-item.selected {
+    background-color: #00ff00;
+    color: #000000;
+    border-color: #00ff00;
+    font-weight: bold;
+}
+
+.nav-item.disabled {
+    color: #555555;
+    cursor: not-allowed;
+    text-decoration: line-through;
+}
+
+.nav-item.disabled:hover {
+    color: #555555;
+    border-color: transparent;
+    background-color: transparent;
+}
+
+.draw-result-container {
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    text-align: center;
+}
+
+.result-box {
+    border: 3px solid #ffffff;
+    margin-bottom: 20px;
+    height: auto;
+    width: 66%;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-box:hover {
+    transform: scaleY(1.15);
+    background-color: #ff0000;
+    border-color: #ff0000;
+}
+
+.link-button {
+    display: inline-block;
+    padding: 10px 20px;
+    width: 66%;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.link-button:hover {
+    background-color: #00ff00;
+    text-shadow: #ffffff 1px 1px 2px ;
+    font-weight: bold;
+    color: #000000;
+}
+
+.disabled-link {
+    border-color: #555555 !important;
+    color: #555555 !important;
+    cursor: not-allowed !important;
+}
+.disabled-link:hover {
+    background-color: transparent !important;
+    color: #555555 !important;
+}
+
+.txt-type > .txt {
+    border-right: 0.01rem solid #ffffff;
+    animation: blink-caret 0.6s infinite;
+}
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: #ffffff; }
+}
+
+.menu-link {
+            color: #00ff00;
+            text-decoration: none;
+            margin-left: 15px;
+            transition: color 0.3s;
+        }
+
+        .menu-link:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        .free-draw-section {
+            width: auto;
+            border: none;
+            padding: 7px;
+            padding-top: 7px;
+            padding-bottom: 9px;
+            background-color: #9599a8;
+        }
+        
+        .terminal-input {
+            width: 100%;
+            background-color: #ffffff;
+            color: #000000;
+            padding: 5px;
+            margin-bottom: 5px;
+            margin-top: 0px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            box-shadow: none;
+            outline: none;
+        }
+
+        .terminal-button {
+            width: 100%;
+            background-color: #ff0000;
+            color: #ffffff;
+            padding: 5px;
+            cursor: pointer;
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            transition: background-color 0.1s;
+        }
+
+        .terminal-button:hover:not(:disabled) {
+            background-color: #000000;
+            color: #ff0000;
+            font-weight: bold;
+        }
+        
+        .terminal-button:disabled {
+            background-color: #444;
+            color: #888;
+            cursor: not-allowed;
+        }
+
+        .popup-modal {
+            transition: opacity 0.1s ease, transform 0.1s ease;
+        }
+        .popup-hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+        .terminal-popup-content {
+            background-color: #1a1a1a;
+            border: 2px solid #00ff00; 
+        }
+        .terminal-popup-content.error {
+            background-color: #1a1a1a;
+            border: 2px solid #ff0000;
+        }
+
+#popupOverlay {
+    display: none;
+        position: fixed;
+            top: 0;
+                left: 0;
+                    width: 100%;
+                        height: 100%;
+                            background: rgba(0, 0, 0, 0.600);
+                                backdrop-filter: blur(1px);
+                                    -webkit-backdrop-filter: blur(1px);
+                                        z-index: 1000;
+                                            justify-content: center;
+                                                align-items: center;
+
+    }
+
+#popupModal {
+    background: #000000;
+        color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+                font-weight:lighter;
+                    border: 4px solid #ffffff;
+                        box-shadow: 8px 8px 0px #00ff00;
+                            padding-bottom: 35px;
+                                padding-top: 15px;
+                                    position: relative;
+                                        max-width: 450px;
+                                            width: 90%;
+                                                text-align: center;
+                                                    max-height: 70vh;
+                                                        display: flex;
+                                                            flex-direction: column;
+    }
+
+#popupTitle {
+    flex-shrink: 0;
+        padding-top: 30px;
+    }
+
+.popup-content {
+    flex: 5;
+        overflow-y: auto;
+            min-height: 0;
+                text-align: center;
+                    font-size: 1.08rem;
+                        margin-bottom: 10px;
+                            padding-right: 0px;
+                                scrollbar-width: none;
+                                    -ms-overflow-style: none;
+    }
+
+.popup-content::-webkit-scrollbar {
+    width: 0px;
+        background: none;
+    }
+
+.popup-content::-webkit-scrollbar-thumb {
+    background-color: none; 
+        border: none;
+    }
+
+.popup-content:hover::-webkit-scrollbar {
+    width: 0px;
+        opacity: 0;
+    }
+
+.popup-content:hover::-webkit-scrollbar-thumb {
+    background-color: none;
+        border-radius: none;
+            border: none;
+    }
+
+#popupBody {
+    margin-top: 0px;
+    }
+
+
+.popup-close {
+    position: absolute;
+        top: 5px;
+            right: 15px;
+                font-size: 2.5rem;
+                    color: #ffffff;
+                        cursor: pointer;
+                            transition: color 0.1s;
+    }
+
+.popup-close:hover {
+    color: #ff0000;
+    }
+
+@keyframes color-cycle-text {
+    0%    { color: var(--color-1); }
+    20%   { color: var(--color-2); }
+    40%   { color: var(--color-3); }
+    60%   { color: var(--color-4); }
+    80%  { color: var(--color-1); }
+    100%  { color: var(--color-3); }
+}
+
+.animated-text {
+    animation: color-cycle-text 5s infinite alternate;
+    font-weight: bold;
+    color: var(--color-2);
+}
+
+#description-box {
+    border: 1px solid #3a3a3a;
+        padding: 10px;
+            transition: border-color 0.3s;
+                font-size: 0.85rem;
+    }
+
+#global-tooltip {
+    position: fixed; 
+    z-index: 99999;
+    background: var(--color-3);
+    color: #000000;
+    border: 2px solid var(--color-4);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.1s;
+    white-space: pre-line;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    transform: translate(-50%, -100%); 
+    margin-top: -12px;
+}
+
+</style>
+
+</head>
+<body class="bg-black text-white overflow-x-hidden">
+    <div id="countdown-popup">
+        <div class="absolute  inset-0 bg-black/80" id="popup-overlay"></div>
+        
+        <div class="relative glass-modal rounded-xl p-6 md:p-8 max-w-xl w-full transform transition-all border-b-4 border-blue-500 overflow-y-auto no-scrollbar">
+            <!-- Close Icon -->
+            <button id="close-x" class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <!-- Title Section with Live Timer -->
+            <div class="text-center">
+                <h3 id="p-status" class="text-blue-400 font-bold text-s uppercase tracking-[0.2em] mb-3 pt-4">Initialing Countdown...</h3>
+                <div class="flex flex-wrap justify-center gap-2 text-white font-bold text-lg md:text-xl">
+                    <div class="timer-box"><span id="y-val">0</span><p class="text-[9px] mt-1 opacity-60">YEARS</p></div>
+                    <div class="timer-box"><span id="m-val">0</span><p class="text-[9px] mt-1 opacity-60">MONTHS</p></div>
+                    <div class="timer-box"><span id="d-val">0</span><p class="text-[9px] mt-1 opacity-60">DAYS</p></div>
+                    <div class="timer-box"><span id="h-val">00</span><p class="text-[9px] mt-1 opacity-60">HRS</p></div>
+                    <div class="timer-box"><span id="min-val">00</span><p class="text-[9px] mt-1 opacity-60">MINS</p></div>
+                    <div class="timer-box"><span id="s-val">00</span><p class="text-[9px] mt-1 opacity-60">SECS</p></div>
+                </div>
+            </div>
+
+            <!-- Body Text Content -->
+<div class="text-center mb-3 mt-3" dir="ltr">
+    <h2 class="animated-text text-lg mb-3">
+        Welcome to the World’s First <br>
+        <span>Perpetual On-Chain</span>
+        <span class="txt-type" data-wait="2700" data-words='[" TX Draws","Free Draws"]'></span>
+    </h2>
+
+    <div class="text-white text-md leading-7 space-y-4">
+        <p class="font-semibold">
+            🚀 <span class="text-yellow-400">One Transaction = Infinite Winnings ♾️</span><br>
+            Your TX-ID stays on the blockchain <span class="blink text-yellow-400">FOREVER</span>
+        </p>
+
+        <hr class="border-gray-600 my-2">
+        <div class="text-sm space-y-2 text-gray-300">
+            <p><strong class="text-white">+ ADD WALLET</strong>
+                <br>to register for <span class="text-green-500">FREE DRAW</span></p>
+                <br>
+            <p><strong>MAKE TX (Buy & Sell)</strong>
+                <br>Every move is a new chance to win</p>
+                <br>
+            <p><strong>Trade On-Chain</strong>
+                <br>List gifts instantly or hold for high value</p>
+        </div>
+
+        <p class="text-xs italic text-blue-300">
+            "The coffee is gone in 10 minutes, but your luck stays forever"
+        </p>
+    </div>
+</div>
+
+
+            <button id="close-btn-main" class="w-full bg-white hover:bg-red-700 hover:text-white text-black py-3 text-md transition-all">
+                ✅ I Read & understood
+            </button>
+        </div>
+    </div>
+<body>
+<div id="global-tooltip"></div>
+<!--######################## MAIN HEADER ################################################ MAIN HEADER ########################################################################-->
+<div class="container">
+<header class="main-header">
+    <h1 class="project-title">
+        <a href="" style="text-decoration: none;" target="_blank" title="Hi-I TX-Draw">
+            <span style="color: #00ff00;" class="blink">●</span><span style="color: #ffffff;">Hi-I TX-Draw</span>
+        </a>
+    </h1>
+<!--######################## MAIN HEADER BTN ################################################ MAIN HEADER BTN ########################################################################-->
+    <div class="header-buttons">
+        <a href="https://discord.gg/wtHj78mD2W" class="double-button" title="HDNFT Discord Server" aria-label="Discord" alt="Hi-Draw-NFT Discord Server" target="_blank" rel="noopener noreferrer">
+            <img src="discord.svg" alt="Discord Icon">
+        </a>
+            <a href="https://t.me/Hi_Draw_NTF" class="double-button" title="HDNFT Telegram Channel" aria-label="Telegram" alt="Hi-Draw-NFT Telegram Channel" target="_blank" rel="noopener noreferrer">
+                <img src="telegram.svg" alt="Telegram Icon">
+            </a>
+                <a href="https://opensea.io/0x840753e7c047ca8c5931b78608713050041abf66/created" class="double-button" title="HDNFT OpenSea collections" aria-label="OpenSea" alt="Hi-Draw-NFT OpenSea collections" target="_blank" rel="noopener noreferrer">
+                    <img src="opensea.svg" alt="Hi-Draw-NFT">
+                </a>
+                    <a href="index.html" class="double-button" title="Hi Draw NFT Home" aria-label="Hi Draw NFT Home" alt="Hi-Draw-NFT Home" rel="noopener noreferrer">
+                    <img src="hi.svg" alt="Hi-Draw-NFT">
+                </a>
+    </div>
+</header>
+
+<div>
+    <div class="data-row">
+        <p class="text-white">Search Your Wallet <span class="blink">></p>
+            
+                    <span class="txt-type animated-text" data-wait="4000" data-words='["< Wins","< Gifts","< Draws"]'></span>
+                        </div>
+        </header>
+
+        <div class="search-wrapper mt-0 mb-4">
+            <input type="text" id="walletInput" class="search-input" placeholder="Enter Wallet Address 0x..." autocomplete="off">
+            <button id="searchBtn" class="search-icon-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+        </div>
+        
+        <!-- Local File Warning -->
+        <div id="local-warning" class="hidden max-w-lg mx-auto mt-0 mb-2 p-4 bg-yellow-900/20 border border-yellow-700/50 rounded-lg text-yellow-200 text-sm text-center">
+            ⚠️ .CSV File Not Suport In Local Mode Run
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="overlay" class="modal-overlay"></div>
+    <div id="modal" class="modal-content">
+        <div class="modal-header">
+            <div>
+                <h3 class="text-lg font-bold text-white">Wallet Wins</h3>
+                <div id="summary-text" class="text-xs text-gray-400 mt-1">Found 0 Wins</div>
+            </div>
+            <button id="closeBtn" class="text-gray-500 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <div id="results-container" class="results-body custom-scrollbar">
+            <!-- Results injected here -->
+        </div>
+    </div>
+
+<!--######################## SUBTITLE AND NFT ################################################ Hi-VII ########################################################################-->
+<div class="info-carousel-wrapper">
+    <div class="info-column">
+        <div class="subtitle" title="100 TX DRAW & 100 FREE DRAW For Each Collection Wins Everyday"><span class="blink">● </span>100 Daily <span class="txt-type" data-wait="4000" data-words='["TX Draw","Free Draw"]'></span></div>
+
+        <div class="subtitle" title="Everythings On-Chain"><span class="blink">●</span> On-Chain <span class="txt-type" data-wait="4000" data-words='["Draws","Winners","Markets"]'></span></div>
+
+            <div class="subtitle" title="Win On-Chain, Sell On-Chain, Repeat On-Chain"><span class="blink">● </span><span class="txt-type" data-wait="4000" data-words='["Win ","List ","Sell "]'></span>Gift NFTs
+            
+            
+            </div>
+
+    </div>
+
+    <div class="carousel-column">
+        <button class="carousel-btn" id="prevBtn">‹</button>
+            <div class="carousel-viewport">
+                <div class="carousel-track" id="track">
+            </div>
+        </div>
+    <button class="carousel-btn" id="nextBtn">›</button>
+</div>
+</div>
+
+    <div class="data-box">
+        <div class="data-row">
+            <span class="txt-type" data-wait="4000" data-words='["Draws → → →","Winnings → → →","Capitals → → →","Assets → → →","Gems → → →"]'></span>
+            <span class="txt-type" data-wait="4000" data-words='["↑ ↑ ↑ Select","↑ ↑ ↑ Your","↑ ↑ ↑ NFTs"]'></span>
+        </div>
+
+    <div class="data-row">
+        <span style="color: #a200ff;">BLOCKCHAIN</span>
+            <span class="txt-type" style="color: #a200ff;" data-wait="4000" data-words='["POLYGON","WETH"]'></span>
+    </div>
+    <div class="data-row">
+        <span class=animated-text>FLOOR PRICE</span>
+        <span class=animated-text>0.0009 WETH</span>
+    </div>
+
+</div>
+
+<div class="flex gap-2">
+    <a href="" title="What is the architecture of the Draws system?"
+       onclick="event.preventDefault(); showPopup(this.getAttribute('data-popup-title'), this.getAttribute('data-popup-body'));" 
+       class="flex-1 bg-white text-black text-center py-2 hover:bg-black hover:text-red-600 transition-colors duration-50"
+       data-popup-title="<span class='blink' style='color:#00ff00'>● </span>DRAW SYSTEM ARCHITECTURE"
+       data-popup-body="<div style='font-size:0.99rem;'>
+                <span style='color:#888;'>• CORE CONCEPT</span><br>
+                <b>> PERPETUAL ELIGIBILITY ENGINE<br>
+                > Unlike Traditional Draws<br>> Your Actions Here Are Assets<br>> They Remain In The Pool Forever<br>> Not Expenses<br>> Once Recorded<br>
+                <br>
+                <span style='color:#ffff00;'>> TX DRAW<br>(Liquidity Mining)</span><br>
+                - - - - - -<br>
+                <span style='color:#fff;'>> ACTION<br>↓<br></span>> Buy Or Sell NFTs On Market<br><br>
+                <span style='color:#fff;'>> STORAGE<br>↓<br></span>> TX Hash Saved On-Chain<br><br>
+                <span style='color:#fff;'>> SELECTION<br>↓<br></span>> System Picks 100 TXs Daily<br><br>
+                <span style='color:#fff;'>> REWARD<br>↓<br></span>> Both Buyer & Seller Win NFTs<br>> Based On <span style='color:#00ff00;'>TX DRAW LEVELs</span><br>
+                <br>
+                <span style='color:#ffff00;'>> FREE DRAW<br>(Registration)</span><br>
+                - - - - - -<br>
+                <span style='color:#fff;'>> ACTION<br>↓<br></span>> + ADD WALLET ADDRESS<br><br>
+                <span style='color:#fff;'>> COST<br>↓<br></span>> 0.00 ETH (No Gas)<br><br>
+                <span style='color:#fff;'>> SELECTION<br>↓<br></span>> 100 Random Daily Wallets<br><br>
+                <span style='color:#fff;'>> REWARD<br>↓<br></span>> Airdrop of 3, 6, or 9 NFTs<br>
+                <br>
+                <div style='text-align:center; font-weight:bold; background:#ff0000; padding:5px; margin-top:5px;'>
+                    <span class='blink'>!!!</span> RULE <span class='blink'>!!!</span><br>YOU NEVER EXPIRE <<br>
+                    EACH ENTRY IS A LIFETIME TICKET <
+                </div>
+            </div>">
+       <span>DRAWs</span>
+    </a>
+
+    <a href="" title="What is the architecture of the value of gifts?"
+       onclick="event.preventDefault(); showPopup(this.getAttribute('data-popup-title'), this.getAttribute('data-popup-body'));" 
+       class="flex-1 bg-white text-black text-center py-2 hover:bg-black hover:text-red-600 transition-colors duration-50"
+       data-popup-title="<span class='blink' style='color:#00ff00'>● </span>GIFT VALUE ARCHITECTURE"
+       data-popup-body="<div style='font-size:0.99rem;'>
+                <span style='color:#888;'>• CORE CONCEPT</span><br>
+                <b>> TRUE OWNERSHIP PROTOCOL<br>
+                > Not Just Rewards<br>> These Are Financial Assets<br>> 100% Control In Your Hands<br>> Zero Lock-up Period<br>
+                <br>
+                <span style='color:#ffff00;'>> INSTANT LIQUIDITY<br>(Short-Term Strategy)</span><br>
+                - - - - - -<br>
+                <span style='color:#fff;'>> RECEIVE<br>↓<br></span>> NFT Lands In Your Wallet<br><br>
+                <span style='color:#fff;'>> LISTING<br>↓<br></span>> Set Your Own Price (WETH)<br><br>
+                <span style='color:#fff;'>> EXECUTION<br>↓<br></span>> Sell Immediately On-Chain<br><br>
+                <span style='color:#fff;'>> RESULT<br>↓<br></span>> Instant Profit Realization<br>
+                <br>
+                <span style='color:#ffff00;'>> STRATEGIC HOLDING<br>(Long-Term Strategy)</span><br>
+                - - - - - -<br>
+                <span style='color:#fff;'>> ASSET CLASS<br>↓<br></span>> Limited Supply NFTs<br><br>
+                <span style='color:#fff;'>> VISION<br>↓<br></span>> HODL As Value Increases<br><br>
+                <span style='color:#fff;'>> FLEXIBILITY<br>↓<br></span>> You Decide When To Sell<br><br>
+                <span style='color:#fff;'>> RESULT<br>↓<br></span>> Maximized Future Capital<br>
+                <br>
+                <div style='text-align:center; font-weight:bold; background:#ff0000; padding:5px; margin-top:5px;'>
+                    <span class='blink'>!!!</span> GUARANTEE <span class='blink'>!!!</span><br>VERIFIED ON-CHAIN ASSETS <<br>
+                    YOUR GIFT IS YOUR CAPITAL <
+                </div>
+            </div>">
+       <span>GIFTs</span>
+    </a>
+</div>
+
+
+
+
+<div class="data-row">
+        <span class="txt-type" data-wait="4000" data-words='["Cheap Tokens","Buy More","More Tickets"]'></span>
+        <span class="txt-type" data-wait="4000" data-words='["Expensive Tokens","Buy Less","Win More"]'></span>
+    </div>
+
+<div class="drawing-navigation">
+    <a href="" class="lv-btn mb-2 mt-2 py-0 bg-orange-600" target="_blank"  title="How To Download Winners Results?"
+        data-popup-title="How To Download Results"
+        data-popup-body="1-Select Results<br>> Free Results > TX Results<br><br>
+        2-Select Collection<br>> Hi-I > Hi-II > ... > Hi-X<br><br>
+        3-Select Date<br>> e.g. 31,December,2100<br><br>
+        4-Download Result<br>> DOWNLOAD .PDF
+        ">
+        <span class="txt-type" data-wait="4000" data-words='["Download","View"]'<span></span> Winners Results</span>
+    </a>
+
+<div class="flex gap-2">
+    <a href="" title="Go To Free Results"
+       onclick="event.preventDefault(); showPopup(this.getAttribute('data-popup-title'), this.getAttribute('data-popup-body'));" 
+       class="flex-1 pt-0 pb-0 mb-2 bg-gray-400 text-gray-800 text-center py-2 hover:bg-black hover:text-red-600 transition-colors duration-50"
+       data-popup-title="Free Results<br>Select Collection"
+       data-popup-body="
+            Hi-I Active<br><a href='Hi-I Free-DRAW.html' class='btn-pop' target='_blank'>Hi-I Free-DRAW</a><br>
+            Hi-II Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-II Free-DRAW</a><br>
+            Hi-III Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-III Free-DRAW</a><br>
+            Hi-IV Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-IV Free-DRAW</a><br>
+            Hi-V Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-V Free-DRAW</a><br>
+            Hi-VI Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VI Free-DRAW</a><br>
+            Hi-VII Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VII Free-DRAW</a><br>
+            Hi-VIII Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VIII Free-DRAW</a><br>
+            Hi-IX Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-IX Free-DRAW</a><br>
+            Hi-X Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-X Free-DRAW</a><br>">
+       <span>Free Results</span>
+    </a>
+
+    <a href="" title="Go To TX Results"
+       onclick="event.preventDefault(); showPopup(this.getAttribute('data-popup-title'), this.getAttribute('data-popup-body'));" 
+       class="flex-1 pt-0 pb-0 mb-2 bg-gray-800 text-gray-400 text-center py-2 hover:bg-black hover:text-red-600 transition-colors duration-50"
+       data-popup-title="TX Results<br>Select Collection"
+       data-popup-body="
+            Hi-I Active<br><a href='Hi-I TX-DRAW.html' class='btn-pop' target='_blank'>Hi-I TX-DRAW</a><br>
+            Hi-II Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-II TX-DRAW</a><br>
+            Hi-III Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-III TX-DRAW</a><br>
+            Hi-IV Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-IV TX-DRAW</a><br>
+            Hi-V Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-V TX-DRAW</a><br>
+            Hi-VI Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VI TX-DRAW</a><br>
+            Hi-VII Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VII TX-DRAW</a><br>
+            Hi-VIII Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VIII TX-DRAW</a><br>
+            Hi-IX Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-IX TX-DRAW</a><br>
+            Hi-X Not Active<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-X TX-DRAW</a><br>">
+       <span>TX Results</span>
+    </a>
+</div>
+
+    <div class="data-row">
+            <span style="color: #ffffff;">Coll.I</span>
+            <span class="blink" style="color: #00ff00;">• Hi-I TX-DRAW</span>
+        </div>
+
+
+    <!-- Year Selector with Buttons -->
+        <div class="year-selector-wrapper">
+            <button class="carousel-btn" id="yearPrevBtn">‹</button>
+            <div class="year-viewport">
+                <div id="year-track" class="year-track">
+                    <!-- Years will be injected here -->
+                </div>
+            </div>
+            <button class="carousel-btn" id="yearNextBtn">›</button>
+        </div>
+        <div id="month-selector" class="selector-row"></div>
+        <div class="divider"></div>
+        <div id="day-selector" class="selector-row"></div>
+
+        <div class="draw-result-container">
+        <div id="result-display" class="result-box">
+            <p class="blink">LOADING LATEST DRAW RESULT...</p>
+        </div>
+        <a href="#" id="view-pdf-link" class="link-button" title="Click To Download" target="_blank" data-popup-title="NOTICE" data-popup-body="Drawing file not found for this date.">DOWNLOAD .PDF</a>
+    </div>
+    </div>
+<!-- #################### START NEW BUTTONS SECTION #################### -->
+<div class="flex gap-2">
+    <a href="" title="Free Results Guides"
+       onclick="event.preventDefault(); showPopup(this.getAttribute('data-popup-title'), this.getAttribute('data-popup-body'));" 
+       class="flex-1 bg-gray-400 text-gray-800 text-center py-2 hover:bg-black hover:text-red-600 transition-colors duration-50"
+       data-popup-title="Free Draw<br>PROTOCOL REGISTRATION"
+       data-popup-body="> + ADD WALLET<br>> REGISTER ONCE<br>> No Gas Fee Required<br>> Forever Eligible Free Draw<br><br><br>> LUCKY DROPS<br>> Win 3, 6, or 9 Unique NFTs<br>> 100 Daily Random Selection<br>> For Each Active Collection">
+       <span class="txt-type" data-wait="1000" data-words='["▼▼▼ "]'></span><span>Free Draw</span>
+    </a>
+
+    <a href="" title="TX Results Guides"
+       onclick="event.preventDefault(); showPopup(this.getAttribute('data-popup-title'), this.getAttribute('data-popup-body'));" 
+       class="flex-1 bg-gray-800 text-gray-400 text-center py-2 hover:bg-black hover:text-red-600 transition-colors duration-50"
+       data-popup-title="TX Draw<br>PERPETUAL TX MINING"
+       data-popup-body="> LIFETIME ENTRY<br>> Every TX is a Permanent Ticket<br><br>> No EXPIRATION<br>> Your TXs Never Expire<br><br>> THE PRIZES<br>> From Each Collection<br>> 100 Daily Winning TXs<br>> Buyer & Seller Win NFTs<br>> Based On TX DRAW LEVELs<br><br><a href='TX DRAW LEVELs Formula.pdf' class='btn-pop' target='_blank'>TX DRAW LEVELs Formula</a>">
+       <span>TX Draw</span><span class="txt-type" data-wait="1000" data-words='[" ▲▲▲"]'></span>
+    </a>
+</div>
+<!-- #################### END NEW BUTTONS SECTION #################### -->
+    <div class="data-row">
+        <span class="txt-type" style="color: #9599a8;" data-wait="4000" data-words='["Meta Mask","Trust Wallet","Coinbase Wallet","Math Wallet","Alpha Wallet","Ledger Nano S","Ledger Nano X"]'></span>
+        <span class="txt-type" style="color: #434555;" data-wait="4000" data-words='["Only Once","Always Win","Always Own","Always Have","Always Sell"]'></span>
+    </div>
+<!-----############### Free Draw ##################################--->
+
+<section class="free-draw-section">
+    <h2 title="+ ADD ETHEREUM ADDRESS" class="text-md font-bold text-gray-800">
+        + ADD WALLET
+    </h2>
+
+<form id="walletForm">
+    <div title="+ ADD ETHEREUM ADDRESS" class="relative w-full mb-1">
+            <input type="text" id="walletAddress" aria-label="Ethereum Wallet Address Input" placeholder="Enter Wallet Address 0x..." 
+                class="terminal-input pr-10" required pattern="^0x[a-fA-F0-9]{40}$" autocomplete="off">
+                    <button type="button" id="pasteBtn" class="absolute right-1 bottom-0 transform -translate-y-1/4 text-gray-500 hover:text-green-500 transition-colors" title="Paste from Clipboard">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                        </svg>
+                    </button>
+            </div>
+
+            <button title="+ ADD ETHEREUM ADDRESS" type="submit" id="addButton" class="terminal-button flex items-center justify-center">
+                    <svg id="loaderIcon" class="animate-spin -mr-1 ml-3 h-5 w-5 text-black hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span id="buttonText">+ ADD WALLET</span>
+                </button>
+            </form>
+        </section>
+        <div class="data-row">
+            <p class="animated-text" text-md title="Without any cost">
+                <span class="blink">Free Draw</span>
+            </p>
+
+            <p class="animated-text" text-md title="Add only once">
+                <span class="blink">For Ever</span>
+            </p>
+
+        </div>
+
+<div id="successPopup" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center popup-modal popup-hidden p-4">
+    <div class="bg-gradient-to-b from-gray-900 to-black border border-green-500/40 rounded-3xl p-8 w-full max-w-sm text-center shadow-[0_0_50px_rgba(34,197,94,0.2)] relative overflow-hidden">
+        <!-- Background Glow -->
+        <div class="absolute -top-10 -left-10 w-32 h-32 bg-green-500/10 blur-3xl rounded-full"></div>
+        
+        <div class="relative z-10">
+            <!-- Animated Success Icon -->
+            <div class="mb-6 relative inline-block">
+                <div class="absolute inset-0 bg-green-500/20 blur-xl rounded-full animate-pulse"></div>
+                <svg class="w-20 h-20 text-green-500 relative" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+
+            <h3 class="text-2xl font-black text-white mb-2 tracking-tighter">ENGINE <span class="text-green-500 uppercase">Ignited!</span></h3>
+            <div class="space-y-4 text-sm text-gray-300">
+                <p class="font-medium text-green-400">Your Wallet is now On-Chain Forever.</p>
+                <div class="bg-gray-800/50 rounded-xl p-4 border border-white/5 italic text-xs leading-relaxed">
+                    "You've just turned on your permanent, daily wealth mining engine. Registration is one-time, but the rewards are <span class="text-white font-bold">Infinite.</span>"
+                </div>
+                <p class="text-[10px] text-gray-500 uppercase tracking-widest">Registered for the Perpetual Free Draw</p>
+            </div>
+
+            <button onclick="hidePopup('successPopup')" class="mt-8 w-full py-4 bg-green-600 hover:bg-green-500 text-black font-bold rounded-xl transition-all shadow-lg active:scale-95">
+                LET'S WIN!
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Error Popup Update -->
+<div id="errorPopup" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center popup-modal popup-hidden p-4">
+    <div class="bg-gradient-to-b from-gray-900 to-black border border-red-500/40 rounded-3xl p-8 w-full max-w-sm text-center shadow-[0_0_50px_rgba(239,68,68,0.2)] relative overflow-hidden">
+        
+        <div class="relative z-10">
+            <!-- Animated Error Icon -->
+            <div class="mb-6 relative inline-block">
+                <div class="absolute inset-0 bg-red-500/20 blur-xl rounded-full animate-pulse"></div>
+                <svg class="w-20 h-20 text-red-500 relative" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+            </div>
+
+            <h3 class="text-2xl font-black text-white mb-2 tracking-tighter uppercase italic">Already <span class="text-red-500">In The Matrix!</span></h3>
+            <div class="space-y-4 text-sm text-gray-300">
+                <p id="errorMessage" class="font-medium text-red-400">This address is already spinning in our engine.</p>
+                <div class="bg-gray-800/50 rounded-xl p-4 border border-white/5 text-xs leading-relaxed text-left">
+                    <span class="text-white font-bold block mb-1">💡 Pro Tip:</span>
+                    Don't worry! This wallet is already active in all <span class="text-yellow-500">Daily Draws</span>. To explode your chances, try adding a <span class="underline">new unique wallet</span> or increase your TX volume!
+                </div>
+            </div>
+
+            <button onclick="hidePopup('errorPopup')" class="mt-8 w-full py-4 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl transition-all border border-white/10 active:scale-95">
+                UNDERSTOOD
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="data-box">
+    <a href="" class="lv-btn" target="_blank"  title="Hi Draw NFT Levels Formula"
+        data-popup-title="WETH TX DRAW LEVELS"
+            data-popup-body="   
+                <span class=blink style=color:#ff0000>• </span>Level-1<br><span class=blink style=color:#ff0000>~=</span>0.0009 WETH<span class=blink style=color:#ffffff> 001•NFT</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-2<br><span class=blink style=color:#ff0000>~=</span>0.002 WETH<span class=blink style=color:#ffffff> 003•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-3<br><span class=blink style=color:#ff0000>~=</span>0.003 WETH<span class=blink style=color:#ffffff> 006•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-4<br><span class=blink style=color:#ff0000>~=</span>0.004 WETH<span class=blink style=color:#ffffff> 009•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-5<br><span class=blink style=color:#ff0000>~=</span>0.005 WETH<span class=blink style=color:#ffffff> 012•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-6<br><span class=blink style=color:#ff0000>~=</span>0.01 WETH<span class=blink style=color:#ffffff> 018•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-7<br><span class=blink style=color:#ff0000>~=</span>0.02 WETH<span class=blink style=color:#ffffff> 024•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-8<br><span class=blink style=color:#ff0000>~=</span>0.03 WETH<span class=blink style=color:#ffffff> 030•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-9<br><span class=blink style=color:#ff0000>~=</span>0.04 WETH<span class=blink style=color:#ffffff> 036•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-10<br><span class=blink style=color:#ff0000>~=</span>0.05 WETH<span class=blink style=color:#ffffff> 042•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-11<br><span class=blink style=color:#ff0000>~=</span>0.1 WETH<span class=blink style=color:#ffffff> 051•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-12<br><span class=blink style=color:#ff0000>~=</span>0.2 WETH<span class=blink style=color:#ffffff> 063•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-13<br><span class=blink style=color:#ff0000>~=</span>0.3 WETH<span class=blink style=color:#ffffff> 075•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-14<br><span class=blink style=color:#ff0000>~=</span>0.4 WETH<span class=blink style=color:#ffffff> 087•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-15<br><span class=blink style=color:#ff0000>~=</span>0.5 WETH<span class=blink style=color:#ffffff> 099•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-16<br><span class=blink style=color:#ff0000>~=</span>1 WETH<span class=blink style=color:#ffffff> 114•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-17<br><span class=blink style=color:#ff0000>~=</span>2 WETH<span class=blink style=color:#ffffff> 129•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-18<br><span class=blink style=color:#ff0000>~=</span>3 WETH<span class=blink style=color:#ffffff> 144•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-19<br><span class=blink style=color:#ff0000>~=</span>4 WETH<span class=blink style=color:#ffffff> 159•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-20<br><span class=blink style=color:#ff0000>~=</span>5 WETH<span class=blink style=color:#ffffff> 174•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-21<br><span class=blink style=color:#ff0000>~=</span>10 WETH<span class=blink style=color:#ffffff> 192•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-22<br><span class=blink style=color:#ff0000>~=</span>20 WETH<span class=blink style=color:#ffffff> 213•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-23<br><span class=blink style=color:#ff0000>~=</span>30 WETH<span class=blink style=color:#ffffff> 234•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-24<br><span class=blink style=color:#ff0000>~=</span>40 WETH<span class=blink style=color:#ffffff> 255•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-25<br><span class=blink style=color:#ff0000>~=</span>50 WETH<span class=blink style=color:#ffffff> 276•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-26<br><span class=blink style=color:#ff0000>~=</span>100 WETH<span class=blink style=color:#ffffff> 300•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-27<br><span class=blink style=color:#ff0000>~=</span>200 WETH<span class=blink style=color:#ffffff> 324•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-28<br><span class=blink style=color:#ff0000>~=</span>300 WETH<span class=blink style=color:#ffffff> 348•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-29<br><span class=blink style=color:#ff0000>~=</span>400 WETH<span class=blink style=color:#ffffff> 372•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-30<br><span class=blink style=color:#ff0000>~=</span>500 WETH<span class=blink style=color:#ffffff> 396•NFTs</span><br><br>
+
+                <span class=blink style=color:#ff0000>• </span>Level-31<br><span class=blink style=color:#ff0000>~=</span>1000 WETH<span class=blink style=color:#ffffff> 423•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-32<br><span class=blink style=color:#ff0000>~=</span>5000 WETH<span class=blink style=color:#ffffff> 459•NFTs</span><br><br>
+                <span class=blink style=color:#ff0000>• </span>Level-33<br><span class=blink style=color:#ff0000>~></span>5000 WETH<span class=blink style=color:#ffffff> 504•NFTs</span><br>
+                <br><a href='TX DRAW LEVELs Formula.pdf' class='btn-pop' target='_blank'>TX DRAW LEVELs Formula</a>
+            ">
+        TX DRAW LEVELS
+    </a>
+</div>
+
+<div>
+<div class="data-box">
+    <a href=""  class="col-btn" target="_blank"  title="Hi Draw NFT COLLECTIONS"
+        data-popup-title="Hi-Draw-NFT COLLECTIONS"
+            data-popup-body="
+            Hi-I<br><a href='https://opensea.io/collection/hi-draw-nft-i?sortDirection=desc' class='btn-pop' target='_blank'>Hi-I • Active</a><br><br>
+            Hi-II<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-II • Not Active</a><br><br>
+            Hi-III<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-III • Not Active</a><br><br>
+            Hi-IV<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-IV • Not Active</a><br><br>
+            Hi-V<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-V • Not Active</a><br><br>
+            Hi-VI<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VI • Not Active</a><br><br>
+            Hi-VII<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VII • Not Active</a><br><br>
+            Hi-VIII<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-VIII • Not Active</a><br><br>
+            Hi-IX<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-IX • Not Active</a><br><br>
+            Hi-X<br><a href='' class='btn-pop disabled-link' target='_blank'>Hi-X • Not Active</a><br><br>
+            Please Read Road Map<br><a href='Hi-Draw-NFT Road Map.pdf' title='Hi-Draw-NFT Road Map' class='btn-pop pt-1 pb-1 target='_blank'>Hi-Draw-NFT Road Map</a>
+            ">
+        COLLECTIONS
+    </a>
+</div>
+
+<div id="collection-list-container">
+<!--######################## Coll.I ################################################ Hi-I ########################################################################-->
+<div class="data-row">
+        <span title="Hi-I">Coll.I</span>
+            <a href="" style="text-decoration: none; "target="_blank" title="Hi-I DRAWs"
+                data-popup-title="● Hi-I DRAWs"
+                    data-popup-body="Start Of The DRAWs<br>After Minting 30000 Hi-I<br>It's Time To Buy Hi-I<br>Marketplace Is Active<br><br><a href='Hi-I TX-DRAW.html' class='btn-pop' target='_blank'>Hi-I TX-DRAW</a><br><a href='Hi-I Free-DRAW.html' class='btn-pop' target='_blank'>Hi-I Free-DRAW</a>">
+                <span style="color: #00ff00;" class="blink">●</span>
+                <span style="color: #00ff00;"> Hi-I DRAWs</span>
+            </a>
+        </div>
+
+            <a href="" class="btn btn-primary" target="_blank"  title="Hi-I"
+                data-popup-title="● Hi-I Active"
+                    data-popup-body="It's Time To Buy Hi-I<br>Marketplace Is Active<br><br><a href='https://opensea.io/collection/hi-draw-nft-i?sortDirection=desc' class='btn-pop' target='_blank'>Hi-I Marketplace</a><br><a href='Hi-I TX-DRAW.html' class='btn-pop' target='_blank'>Hi-I TX-DRAW</a><br><a href='Hi-I Free-DRAW.html' class='btn-pop' target='_blank'>Hi-I Free-DRAW</a>">
+                <span>Hi-I Active <span class="txt-type" data-wait="4000" data-words='["Market","Mint"]'</span>
+                </a>
+
+<!--######################## Coll.II ################################################ Hi-II ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-II">Coll.II</span>
+            <a href="" style="text-decoration: none; "target="_blank" title="Hi-II DRAWs"
+                data-popup-title="● Hi-II DRAWs"
+                    data-popup-body="Hi-II Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+                        <span style="color: #858585;">● Hi-II DRAWs</span></a>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-II"
+            data-popup-title="● Hi-II Not Active" 
+                data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span>
+        </a>">
+        <span>Hi-II Not Active</span>
+        </a>
+
+<!--######################## Coll.III ################################################ Hi-III ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-III">Coll.III</span>
+            <a href="" style="text-decoration: none; "target="_blank" title="Hi-III DRAWs"
+                data-popup-title="● Hi-III DRAWs"
+                    data-popup-body="Hi-III Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+                        <span style="color: #858585;">● Hi-III DRAWs</span>
+            </a>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-III"
+            data-popup-title="● Hi-III Coll"
+                data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+                <span>Hi-III Not Active</span>
+        </a>
+
+    <button id="toggle-list-btn" class="moles-btn">
+            <span>Show More Colls.IV V VI</span>
+        </button>
+
+<div id="hidden-collections" style="display: none;">
+<!--######################## Coll.IV ################################################ Hi-IV ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-IV">Coll.IV</span>
+            <a href="" style="text-decoration: none; "target="_blank" title="Hi-IV DRAWs"
+            data-popup-title="● Hi-IV DRAWs"
+                    data-popup-body="Hi-IV Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+                <span style="color: #858585;">● Hi-IV DRAWs</span>
+            </a>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-IV"
+        data-popup-title="● Hi-IV Coll"
+            data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span>Hi-IV Not Active</span>
+        </a>
+
+<!--######################## Coll.V ################################################ Hi-V ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-V">Coll.V</span>
+            <a href="" style="text-decoration: none; "target="_blank" title="Hi-V DRAWs"
+            data-popup-title="● Hi-V DRAWs"
+                data-popup-body="Hi-V Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+                <span style="color: #858585;">● Hi-V DRAWs</span>
+            </a>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-V"
+        data-popup-title="● Hi-V Coll"
+            data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span>Hi-V Not Active</span>
+            </a>
+
+<div id="hidden-collections">
+<!--######################## Coll.VI ################################################ Hi-VI ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-VI">Coll.VI</span>
+            <a href="" style="text-decoration: none; "target="_blank" title="Hi-VI DRAWs"
+            data-popup-title="● Hi-VI DRAWs"
+                data-popup-body="Hi-VI Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+                <span style="color: #858585;">● Hi-VI DRAWs</span>
+            </a>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-VI"
+        data-popup-title="● Hi-VI Coll"
+            data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span>Hi-VI Not Active</span>
+        </a>
+
+<!--######################## Coll.VII ################################################ Hi-VII ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-VII">Coll.VII</span>
+        <a href="" style="text-decoration: none; "target="_blank" title="Hi-VII DRAWs"
+            data-popup-title="● Hi-VII DRAWs"
+                    data-popup-body="Hi-VII Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span style="color: #858585;">● Hi-VII DRAWs</span>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-VII"
+            data-popup-title="● Hi-VII Coll"
+                    data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span>Hi-VII Not Active</span>
+        </a>
+
+<!--######################## Coll.VIII ################################################ Hi-VIII ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-VIII">Coll.VIII</span>
+        <a href="" style="text-decoration: none; "target="_blank" title="Hi-VIII DRAWs"
+            data-popup-title="● Hi-VIII DRAWs"
+                    data-popup-body="Hi-VIII Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span style="color: #858585;">● Hi-VIII DRAWs</span>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-VIII"
+        data-popup-title="● Hi-VIII Coll"
+            data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span>Hi-VIII Not Active</span>
+        </a>
+
+<!--######################## Coll.IX ################################################ Hi-IX ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-IX">Coll.IX</span>
+        <a href="" style="text-decoration: none; "target="_blank" title="Hi-IX DRAWs"
+            data-popup-title="● Hi-IX DRAWs"
+                data-popup-body="Hi-IX Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span style="color: #858585;">● Hi-IX DRAWs</span>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-IX"
+            data-popup-title="● Hi-IX Coll"
+                data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span>Hi-IX Not Active</span>
+        </a>
+
+<!--######################## Coll.X ################################################ Hi-X ########################################################################-->
+    <div class="data-row">
+        <span title="Hi-X">Coll.X</span>
+        <a href="" style="text-decoration: none; "target="_blank" title="Hi-X DRAWs"
+            data-popup-title="● Hi-X DRAWs"
+                data-popup-body="Hi-X Not Active<br>Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span style="color: #858585;">● Hi-X DRAWs</span>
+    </div>
+        <a href="" class="btn btn-primary" target="_blank" title="Hi-X"
+            data-popup-title="● Hi-X Coll"
+                data-popup-body="Please Read Road Map<br><br><a href='Hi-Draw-NFT Road Map.pdf' class='btn-pop pt-1 pb-1 target='_blank'  title='Hi-Draw-NFT Road Map'<span>Hi-Draw-NFT Road Map</span></a>">
+            <span>Hi-X Not Active</span>
+        </a>
+    </div>
+</div>
+</div>
+
+<!--######################## ABUOT Hi Draw NFT ################################################ ABUOT Hi Draw NFT ########################################################################-->
+<div id="about-text-container">
+    <div class="data-row">
+    <span class="animated-text">About Hi Draw NFT</span> 
+    <span class="txt-type animated-text" data-wait="4000" data-words='["Draws", "For Ever <<<", "Winners", "For Ever <<<" ,"Markets", "For Ever <<<", "You Come Back", "For Ever <<<", "Win List Sell", "For Ever <<<", "You Come Back", "For Ever <<<"]'></span>
+    </div>
+    </div>
+
+    <div id="description-box" class="animated-text">
+        <a href="Hi-Draw-NFT Road Map.pdf" class="btn pt-1 pb-1" target="_blank"  title="Hi-Draw-NFT Road Map"
+            <span>Hi-Draw-NFT Road Map</span>
+        </a>
+        Transcending Static Digital Assets, Hi Draw NFT Operates as An Autonomous On-Chain Liquidity Engine Driven by Perpetual Market Velocity<br>
+    <div class="data-row">
+    <span></span> 
+    <span class="txt-type" style="color: #ffffff; font-size: 0.8rem;" data-wait="1555" data-words='["<<< WE BELIEVE IN MATH","<<< NOT LUCK","<<< EVERY TRANSACTION","<<< EVERY DRAW","<<< AND EVERY WINNER","<<< IS RECORDED ON THE BLOCKCHAIN","<<< VERIFIABLE BY ANYONE","<<< IMMUTABLE FOREVER","<<< NO HIDDEN SERVERS","NO BLACK BOXES"]'></span>
+    </div>
+        Unlike Passive Collections, This Protocol Rewards Active Participation: Definitively Selecting 100 Daily Transactions to Distribute Prizes Between Buyers and Sellers<br>
+
+    <div class="data-row">
+    <span></span> 
+    <span class="txt-type" style="color: #ffffff; font-size: 0.8rem;" data-wait="1555" data-words='["<<< IN TRADITIONAL LOTTERIES","<<< YOUR TICKET DIES AFTER THE DRAW","<<< AT HI DRAW","<<< YOUR ENTRY IS ETERNAL","<<< REGISTER ONCE","<<< REMAIN ELIGIBLE FOREVER","<<< AS LONG AS THE BLOCKCHAIN EXISTS","<<< YOUR CHANCE EXISTS"]'></span>
+    </div>
+        Enter 24/7 Active Ecosystem Hi-draw-NFT
+    </div>
+
+<!--######################## FOOTER BTN ################################################ FOOTER BTN ########################################################################-->
+<div class="data-row">
+        <a href="https://discord.gg/wtHj78mD2W", class="footer-btn" target="_blank">Discord</a>
+        <a href="https://opensea.io/Hi-Draw-NFT", class="footer-btn" target="_blank"><alt="Hi-Draw-NFT">Hi</a>
+        <a href="https://t.me/Hi_Draw_NTF", class="footer-btn" target="_blank">Telegram</a>
+</div>
+<!--######################## MAIN FOOTER ################################################ MAIN FOOTER ########################################################################-->
+<footer class="footer">
+        © 2025 Hi-Draw-NFT Ecosystem<br><br>
+            <a href="https://opensea.io/0x840753e7c047ca8c5931b78608713050041abf66" style="text-decoration: none;" target="_blank">
+                <span style="color: #00ff00;" class="blink">{</span><span class="animated-text">Hi-Draw-NFT</span><span style="color: #00ff00;" class="blink">}</span>
+                <br>
+            </a>
+    </div>
+</footer>
+
+
+<!--######################## POPUP OVERLAY SETTINGS ################################################ POPUP OVERLAY SETTINGS ########################################################################-->
+        <div id="popupOverlay">
+        <div id="popupModal">
+            <span class="popup-close" title="Close">&times;</span>
+                <h2 id="popupTitle" style="font-family: 'Courier New', Courier, monospace; font-size: 1.3rem; text-align: center; color: #ffffff; margin-top: 0; padding-bottom: 25px;"></h2>
+                    <div class="popup-content">
+                        <p id="popupBody" style="font-family: 'Courier New', Courier, monospace;"></p>
+                    </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw_azf1ye5p8Ty0sDHLMA21vHA6dTPi5Up1aAIt6xkLEp7-hka9sRjbdOk1aXo0ccbe/exec";
+    function showStatusPopup(id, message = null) {
+        const popup = document.getElementById(id);
+        if (message && id === 'errorPopup') {
+            document.getElementById('errorMessage').textContent = message;
+        }
+        popup.classList.remove('popup-hidden');
+        popup.style.opacity = '1';
+        popup.style.transform = 'scale(1)'; 
+    }
+
+    function hidePopup(id) {
+        const popup = document.getElementById(id);
+        popup.style.opacity = '0';
+        popup.style.transform = 'scale(0.9)';
+        setTimeout(() => {
+            popup.classList.add('popup-hidden');
+        }, 100); 
+    }
+
+    function toggleLoading(isLoading) {
+        const button = document.getElementById('addButton');
+        button.disabled = isLoading;
+        document.getElementById('loaderIcon').classList.toggle('hidden', !isLoading);
+        document.getElementById('buttonText').textContent = isLoading ? '' : '+ ADD WALLET';
+    }
+
+    function isAddressValid(address) {
+        return /^0x[a-fA-F0-9]{40}$/.test(address);
+    }
+
+    function addWallet(address) {
+        const cleanAddress = address.trim().toLowerCase();
+
+        if (!isAddressValid(cleanAddress)) {
+            showStatusPopup('errorPopup', 'Error Please Enter A Valid Wallet Address (Starts With 0x, 42 Chars)');
+            return;
+        }
+
+        toggleLoading(true);
+
+        fetch(GOOGLE_SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({ walletAddress: cleanAddress }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            toggleLoading(false);
+            if (data.result === "success") {
+                showStatusPopup('successPopup');
+                document.getElementById('walletAddress').value = '';
+            } else if (data.message === "Duplicate Address") {
+                showStatusPopup('errorPopup', 'Error This Address Is Already Registered');
+            } else {
+                showStatusPopup('errorPopup', 'Error Registering.');
+            }
+        })
+        .catch(error => {
+            toggleLoading(false);
+            console.error("Error:", error);
+            showStatusPopup('errorPopup', 'Error Connecting To Server');
+        });
+    }
+
+    document.getElementById('walletForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const addressInput = document.getElementById('walletAddress');
+        addWallet(addressInput.value);
+    });
+
+// --- Paste Button Logic ---
+    const pasteBtn = document.getElementById('pasteBtn');
+    if (pasteBtn) {
+        pasteBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                document.getElementById('walletAddress').value = text;
+            } catch (err) {
+                console.error('Failed to read clipboard', err);
+                alert('Clipboard access denied. Please paste manually.');
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const track = document.getElementById('track');
+            const prevBtn = document.getElementById('prevBtn');
+                const nextBtn = document.getElementById('nextBtn');
+                    const itemWidth = 56;
+                        const gap = 1;
+                            const totalMove = itemWidth+itemWidth+itemWidth;
+
+
+    let autoPlayInterval;
+        let isTransitioning = false;
+            function moveRight() {
+                if (isTransitioning) return;
+                isTransitioning = true;
+                    track.style.transition = 'transform 0.36s ease-in-out';
+                        track.style.transform = `translateX(-${totalMove}px)`;
+                            setTimeout(() => {
+                                track.style.transition = 'none';
+                                    track.appendChild(track.firstElementChild);
+                                        track.style.transform = 'translateX(0)';
+                                            setTimeout(() => { isTransitioning = false; }, 50);
+                                                }, 400);
+        }
+
+    function moveLeft() {
+        if (isTransitioning) return;
+            isTransitioning = true;
+                track.style.transition = 'none';
+                    track.insertBefore(track.lastElementChild, track.firstElementChild);
+                        track.style.transform = `translateX(-${totalMove}px)`;
+                            setTimeout(() => {
+                                track.style.transition = 'transform 0.3s ease-in-out';
+                                    track.style.transform = 'translateX(0)';
+                                        setTimeout(() => { isTransitioning = false; }, 400);
+                                            }, 50);
+        }
+
+    const carouselViewport = document.querySelector('.carousel-viewport');
+    if (carouselViewport) {
+        carouselViewport.addEventListener('mouseover', stopAutoPlay);
+        carouselViewport.addEventListener('mouseout', startAutoPlay);
+        prevBtn.addEventListener('mousedown', stopAutoPlay);
+        nextBtn.addEventListener('mousedown', stopAutoPlay);
+        prevBtn.addEventListener('mouseup', startAutoPlay);
+        nextBtn.addEventListener('mouseup', startAutoPlay);
+        function startAutoPlay() { autoPlayInterval = setInterval(moveRight, 2700); }
+        function stopAutoPlay() { clearInterval(autoPlayInterval); }
+        nextBtn.addEventListener('click', moveRight);
+        prevBtn.addEventListener('click', moveLeft);
+        startAutoPlay();
+    }
+
+    // --- Popup Handling ---
+    const overlay = document.getElementById('popupOverlay');
+    const modal = document.getElementById('popupModal');
+    const closeBtn = document.querySelector('.popup-close');
+    const popupTitleEl = document.getElementById('popupTitle');
+    const popupBodyEl = document.getElementById('popupBody');
+
+    function showPopup(title, body) {
+        if (popupTitleEl) popupTitleEl.innerHTML = title;
+        if (popupBodyEl) popupBodyEl.innerHTML = body;
+        if (overlay) overlay.style.display = 'flex';
+    }
+
+    function closePopup() {
+        if (overlay) overlay.style.display = 'none';
+    }
+
+    if (closeBtn) closeBtn.addEventListener('click', closePopup);
+    if (overlay) overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closePopup();
+    });
+
+    // --- GLOBAL POPUP CLICK LISTENER (FIXED) ---
+    document.addEventListener('click', (e) => {
+        const link = e.target.closest('a');
+        if (link) {
+            const href = link.getAttribute('href');
+            const hasPopupData = link.dataset.popupTitle;
+            if (href && href !== "" && href !== "#" && href !== "javascript:void(0)") {
+                return;
+            }
+
+            if (hasPopupData) {
+                e.preventDefault();
+                let title = link.dataset.popupTitle || "NOTE!";
+                let body = link.dataset.popupBody || "Not Available<br>Check Back Later";
+                showPopup(title, body);
+            }
+        }
+    });
+
+});
+
+// --- TypeWriter Logic ---
+    class TypeWriter {
+        constructor(txtElement, words, wait = 3000) {
+            this.txtElement = txtElement;
+            this.words = words;
+            this.txt = '';
+            this.wordIndex = 0;
+            this.wait = parseInt(wait, 10);
+            this.type();
+            this.isDeleting = false;
+        }
+
+        type() {
+            const current = this.wordIndex % this.words.length;
+            const fullTxt = this.words[current];
+
+            if (this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
+
+            let typeSpeed = 15;
+
+            if (this.isDeleting) {
+                typeSpeed /= 2;
+            }
+
+            if (!this.isDeleting && this.txt === fullTxt) {
+                typeSpeed = this.wait;
+                this.isDeleting = true;
+            } else if (this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.wordIndex++;
+                typeSpeed = 15;
+            }
+
+            setTimeout(() => this.type(), typeSpeed);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', initTypeWriter);
+
+    function initTypeWriter() {
+        const txtElements = document.querySelectorAll('.txt-type');
+        txtElements.forEach(txtElement => {
+            const wordsAttr = txtElement.getAttribute('data-words');
+            const wait = txtElement.getAttribute('data-wait');
+            
+            if (wordsAttr) {
+                try {
+                    const words = JSON.parse(wordsAttr);
+                    new TypeWriter(txtElement, words, wait);
+                } catch (e) {
+                    console.error("Error parsing data-words attribute:", wordsAttr, e);
+                }
+            }
+        });
+    }
+
+    function toggleCollections() {
+        const hiddenContent = document.getElementById('hidden-collections');
+        const button = document.getElementById('toggle-list-btn');
+        const container = document.getElementById('collection-list-container');
+        const buttonTextSpan = button.querySelector('span');
+
+        if (hiddenContent.style.display === 'none') {
+            hiddenContent.style.display = 'block'; 
+
+            buttonTextSpan.textContent = 'Show Less Colls';
+
+            container.appendChild(button);
+
+        } else {
+            hiddenContent.style.display = 'none';
+            buttonTextSpan.textContent = 'Show More Colls.IV V VI';
+
+            container.insertBefore(button, hiddenContent);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const button = document.getElementById('toggle-list-btn');
+        if (button) {
+            button.addEventListener('click', toggleCollections);
+        }
+    });
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const collectionConfigs = [
+        {
+            name: "Hi-I",
+            baseUrl: "https://opensea.io/item/polygon/0x2665f96253f23e85e4937798e1cdeb24136e4ddf/",
+            count: 2000,
+            minTokenId: 0,
+            maxTokenId: 11999,
+            title: "Make TX # Win Always"
+        },
+
+        /*
+        // (Hi-II)
+        {
+            name: "Hi-II",
+            baseUrl: "https://opensea.io/item/polygon/0x...address_for_hi_ii.../", //
+            count: 15, //Hi-II
+            minTokenId: 1,
+            maxTokenId: 1000,
+            title: "Hi-II Collection"
+        },
+        */
+
+    ];
+
+    function generateNftData(configs) {
+        const generatedData = [];
+        configs.forEach(config => {
+            for (let i = 0; i < config.count; i++) {
+                const randomTokenId = getRandomInt(config.minTokenId, config.maxTokenId);
+                generatedData.push({
+                    text: config.name,
+                    url: `${config.baseUrl}${randomTokenId}`,
+                    title: config.title
+                });
+            }
+        });
+        return generatedData;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        const track = document.getElementById('track');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const itemWidth = 56;
+        const gap = 16;
+        const totalMove = itemWidth + gap;
+
+        let position = 0;
+        
+        const nftData = generateNftData(collectionConfigs);
+        if (track) {
+            nftData.forEach((item) => {
+                const link = document.createElement('a');
+                link.className = 'nft-square';
+                link.href = item.url;
+                link.innerText = item.text; 
+                link.title = item.title;
+                link.target = '_blank';
+                track.appendChild(link);
+            });
+        }
+
+document.addEventListener('DOMContentLoaded', () => {
+        const track = document.getElementById('track');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const carouselViewport = document.querySelector('.carousel-viewport');
+        const itemWidth = 56; 
+        const gap = 1;       
+        const step = itemWidth + gap;
+
+        let isTransitioning = false;
+        let autoPlayInterval;
+
+        function moveRight() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            track.style.transition = 'transform 0.3s ease-in-out';
+            track.style.transform = `translateX(-${step}px)`;
+
+            setTimeout(() => {
+                track.style.transition = 'none';
+                track.appendChild(track.firstElementChild);
+                track.style.transform = 'translateX(0)';
+                
+                setTimeout(() => { isTransitioning = false; }, 50);
+            }, 300);
+        }
+
+        function moveLeft() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            track.style.transition = 'none';
+            track.insertBefore(track.lastElementChild, track.firstElementChild);
+            track.style.transform = `translateX(-${step}px)`;
+            setTimeout(() => {
+                track.style.transition = 'transform 0.3s ease-in-out';
+                track.style.transform = 'translateX(0)';
+                setTimeout(() => { isTransitioning = false; }, 300);
+            }, 20);
+        }
+
+        if (carouselViewport) {
+            function startAutoPlay() { 
+                stopAutoPlay();
+                autoPlayInterval = setInterval(moveRight, 3000); 
+            }
+            function stopAutoPlay() { clearInterval(autoPlayInterval); }
+
+            carouselViewport.addEventListener('mouseenter', stopAutoPlay);
+            carouselViewport.addEventListener('mouseleave', startAutoPlay);
+            carouselViewport.addEventListener('touchstart', stopAutoPlay);
+            carouselViewport.addEventListener('touchend', startAutoPlay);
+
+            nextBtn.addEventListener('click', () => {
+                stopAutoPlay();
+                moveRight();
+            });
+            
+            prevBtn.addEventListener('click', () => {
+                stopAutoPlay();
+                moveLeft();
+            });
+
+            startAutoPlay();
+        }
+    });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const START_YEAR = 2024; 
+        const END_YEAR = 2100;
+        const RESULTS_BASE_PATH = "1-Hi-I-TXDraw-Results";
+        const PDF_FILENAME_PREFIX = "Hi-I TX-Draw ";
+        const YEAR_FOLDER_PREFIX = "Hi-I ";
+        const today = new Date();
+        const CURRENT_YEAR = today.getFullYear();
+        const CURRENT_MONTH = today.getMonth() + 1; // 1-12
+        const CURRENT_DAY = today.getDate();
+        let selectedYear = CURRENT_YEAR;
+        let selectedMonth = CURRENT_MONTH;
+        let selectedDay = CURRENT_DAY;
+        const yearTrack = document.getElementById('year-track');
+        const monthSelector = document.getElementById('month-selector');
+        const daySelector = document.getElementById('day-selector');
+        const resultDisplay = document.getElementById('result-display');
+        const viewPdfLink = document.getElementById('view-pdf-link');
+        const MONTH_NAMES = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        
+        function getDaysInMonth(year, month) {
+            return new Date(year, month, 0).getDate();
+        }
+
+        function buildPdfPath(year, month, day) {
+            const monthFolder = `${month}-${MONTH_NAMES[month - 1]}`;
+            const yearFolder = `${YEAR_FOLDER_PREFIX}${year}`;
+            const paddedDayForFileName = String(day).padStart(2, '0');
+            const monthName = MONTH_NAMES[month - 1]; 
+            const customPdfFileName = `${PDF_FILENAME_PREFIX}${paddedDayForFileName} ${monthName} ${year}.pdf`;
+            return `${RESULTS_BASE_PATH}/${yearFolder}/${monthFolder}/${day}/${customPdfFileName}`;
+        }
+
+        function handleYearSelection(year, element) {
+            if (year > CURRENT_YEAR) return;
+
+            document.querySelectorAll('.year-square').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedYear = year;
+
+            renderMonths();
+            renderDays();
+            updateResultDisplay(selectedYear, selectedMonth, selectedDay);
+        }
+
+        function handleMonthSelection(month, element) {
+            document.querySelectorAll('#month-selector .nav-item').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedMonth = month;
+            
+            renderDays();
+            updateResultDisplay(selectedYear, selectedMonth, selectedDay);
+        }
+
+        function handleDaySelection(day, element) {
+            document.querySelectorAll('#day-selector .nav-item').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedDay = day;
+            updateResultDisplay(selectedYear, selectedMonth, selectedDay);
+        }
+
+        function renderYears() {
+            if(!yearTrack) return;
+            yearTrack.innerHTML = '';
+            for (let i = START_YEAR; i <= END_YEAR; i++) {
+                const item = document.createElement('div');
+                item.className = 'year-square';
+                item.textContent = i;
+                item.dataset.value = i;
+                
+            if (i > CURRENT_YEAR) {
+                    const popupBody = `Wait For ${i} To Arrive.`;
+                    
+                    item.classList.add('disabled');
+                    item.setAttribute('title', popupBody); 
+                    
+                    item.dataset.popupTitle = "Don't Rush"; 
+                    item.dataset.popupBody = popupBody;
+                } else {
+                    item.addEventListener('click', () => handleYearSelection(i, item));
+                }
+
+                yearTrack.appendChild(item);
+            }
+        }
+
+        function renderMonths() {
+            if(!monthSelector) return;
+            monthSelector.innerHTML = '';
+            for (let i = 1; i <= 12; i++) {
+                const item = document.createElement('div');
+                item.className = 'nav-item';
+                item.textContent = MONTH_NAMES[i - 1];
+                item.dataset.value = i;
+
+                let isDisabled = false;
+                
+                if (selectedYear === CURRENT_YEAR && i > CURRENT_MONTH) {
+                    item.classList.add('disabled');
+                    item.style.opacity = '0.5'; 
+                    item.style.cursor = 'not-allowed';
+                    isDisabled = true;
+                } else if (selectedYear > CURRENT_YEAR) {
+                    item.classList.add('disabled');
+                    isDisabled = true;
+                } else {
+                    item.addEventListener('click', () => handleMonthSelection(i, item));
+                }
+                
+                if (i === selectedMonth && !isDisabled) {
+                    item.classList.add('selected');
+                } else if (i === CURRENT_MONTH && selectedYear === CURRENT_YEAR && !isDisabled) {
+                    if (selectedMonth > CURRENT_MONTH) {
+                         selectedMonth = CURRENT_MONTH;
+                         item.classList.add('selected');
+                    }
+                }
+                monthSelector.appendChild(item);
+            }
+        }
+
+        function renderDays() {
+            if(!daySelector) return;
+            daySelector.innerHTML = '';
+            const maxDays = getDaysInMonth(selectedYear, selectedMonth);
+
+            if (selectedDay > maxDays || (selectedYear === CURRENT_YEAR && selectedMonth === CURRENT_MONTH && selectedDay > CURRENT_DAY)) {
+                if (selectedYear === CURRENT_YEAR && selectedMonth === CURRENT_MONTH) {
+                    selectedDay = CURRENT_DAY;
+                } else {
+                    selectedDay = maxDays;
+                }
+            }
+
+            for (let i = 1; i <= maxDays; i++) {
+                const item = document.createElement('div');
+                item.className = 'nav-item';
+                item.textContent = i;
+                item.dataset.value = i;
+
+                let isDisabled = false;
+                if (selectedYear === CURRENT_YEAR && selectedMonth === CURRENT_MONTH && i > CURRENT_DAY) {
+                    item.classList.add('disabled');
+                    item.style.opacity = '0.5';
+                    item.style.cursor = 'not-allowed';
+                    isDisabled = true;
+                } else {
+                    item.addEventListener('click', () => handleDaySelection(i, item));
+                }
+                
+                if (i === selectedDay && !isDisabled) {
+                    item.classList.add('selected');
+                }
+                daySelector.appendChild(item);
+            }
+        }
+
+        function updateResultDisplay(year, month, day) {
+            if(!resultDisplay) return;
+            const pdfPath = buildPdfPath(year, month, day);
+
+            if (viewPdfLink) {
+                viewPdfLink.href = pdfPath;
+                viewPdfLink.classList.remove('disabled-link');
+                viewPdfLink.removeAttribute('data-popup-title');
+                viewPdfLink.removeAttribute('data-popup-body');
+            }
+
+            const date = new Date(year, month - 1, day);
+            const todayDate = new Date(CURRENT_YEAR, CURRENT_MONTH - 1, CURRENT_DAY);
+            const timeDifference = date.getTime() - todayDate.getTime();
+            const dayDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+            let differenceText;
+            if (dayDifference === 0) {
+                differenceText = `<span style="color:var(--color-1);">Today</span>`;
+            } else if (dayDifference > 0) {
+                differenceText = `<span style="color:var(--color-2);">In ${dayDifference} days.</span>`;
+            } else {
+                differenceText = `<span style="color:var(--color-1);">${Math.abs(dayDifference)} days ago</span>`;
+            }
+
+            const dayOfWeek = date.toLocaleString('en-US', { weekday: 'long' });
+
+            resultDisplay.innerHTML = `
+                <h3>${dayOfWeek} ${day},${MONTH_NAMES[month - 1]},${year}</h3>
+                <p>${differenceText}</p>
+            `;
+        }
+
+        function initApp() {
+            renderYears();
+            if (CURRENT_YEAR >= START_YEAR) {
+                selectedYear = CURRENT_YEAR;
+                setTimeout(() => {
+                     const yearEl = document.querySelector(`.year-square[data-value="${CURRENT_YEAR}"]`);
+                     if (yearEl) yearEl.classList.add('selected');
+                }, 100);
+                renderMonths();
+                selectedMonth = CURRENT_MONTH;
+                setTimeout(() => { 
+                    const monthEl = document.querySelector(`#month-selector .nav-item[data-value="${CURRENT_MONTH}"]`);
+                    if (monthEl) monthEl.classList.add('selected');
+                    renderDays();
+                    selectedDay = CURRENT_DAY;
+                    const dayEl = document.querySelector(`#day-selector .nav-item[data-value="${CURRENT_DAY}"]`);
+                    if (dayEl) dayEl.classList.add('selected');
+                    updateResultDisplay(selectedYear, selectedMonth, selectedDay);
+                }, 200);
+            } else {
+                if(resultDisplay) resultDisplay.innerHTML = `<p class="blink">Project starts in ${START_YEAR}.</p>`;
+            }
+        }
+        
+        if(document.getElementById('year-track')) {
+            initApp();
+        }
+
+    const globalTooltip = document.getElementById('global-tooltip');
+
+    document.addEventListener('mouseover', (e) => {
+        const target = e.target.closest('[data-popup-title]');
+        if (target && target.classList.contains('disabled')) {
+            const title = target.getAttribute('data-popup-title');
+            const body = target.getAttribute('data-popup-body');
+            
+            if (title || body) {
+                globalTooltip.innerHTML = `${title}<br>${body}`;
+                const rect = target.getBoundingClientRect();
+                globalTooltip.style.left = (rect.left + rect.width / 2) + 'px';
+                globalTooltip.style.top = rect.top + 'px';
+                
+                globalTooltip.style.visibility = 'visible';
+                globalTooltip.style.opacity = '1';
+            }
+        }
+    });
+
+    document.addEventListener('mouseout', (e) => {
+        const target = e.target.closest('[data-popup-title]');
+        if (target) {
+            globalTooltip.style.visibility = 'hidden';
+            globalTooltip.style.opacity = '0';
+        }
+    });
+        
+        // Listener for Year Carousel Buttons (Simple Scroll)
+        const yearTrackEl = document.getElementById('year-track');
+        const yearPrev = document.getElementById('yearPrevBtn');
+        const yearNext = document.getElementById('yearNextBtn');
+        if(yearTrackEl && yearPrev && yearNext) {
+             let scrollAmount = 0;
+             const scrollStep = 56 * 3; // 3 blocks
+             yearNext.addEventListener('click', () => {
+                 scrollAmount -= scrollStep;
+                 // Limit logic can be added here
+                 yearTrackEl.style.transform = `translateX(${scrollAmount}px)`;
+             });
+             yearPrev.addEventListener('click', () => {
+                 scrollAmount += scrollStep;
+                 if(scrollAmount > 0) scrollAmount = 0;
+                 yearTrackEl.style.transform = `translateX(${scrollAmount}px)`;
+             });
+        }
+        
+        // Global listener logic for the new section popup handling
+        const yearTrackContainer = document.getElementById('year-track');
+        if (yearTrackContainer) {
+            yearTrackContainer.addEventListener('click', (e) => {
+                const target = e.target.closest('.year-square.disabled');
+                if (target) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const title = target.getAttribute('data-popup-title') || "Notice";
+                    const body = target.getAttribute('data-popup-body') || "Wait for this year to arrive.";
+                    showPopup(title, body);
+                }
+            });
+        }
+    });
+
+        (function() {
+            const popup = document.getElementById('countdown-popup');
+            const targetDate = new Date(2026, 0, 0, 0, 0, 0); // 2025-12-25 00:00:00
+
+            function showPopup() {
+                popup.style.display = 'flex';
+                document.body.classList.add('modal-open');
+            }
+
+            function hidePopup() {
+                popup.style.display = 'none';
+                document.body.classList.remove('modal-open');
+            }
+
+            document.getElementById('close-x').onclick = hidePopup;
+            document.getElementById('popup-overlay').onclick = hidePopup;
+            document.getElementById('close-btn-main').onclick = hidePopup;
+
+            function updateClock() {
+                const now = new Date();
+                let diff = targetDate - now;
+                let isPast = false;
+
+                if (diff < 0) {
+                    isPast = true;
+                    diff = Math.abs(diff);
+                    document.getElementById('p-status').innerText = "Time elapsed since the start of the draws";
+                    document.getElementById('p-status').style.color = "#00ff00";
+                } else {
+                    document.getElementById('p-status').innerText = "Time left until the start of the draws";
+                    document.getElementById('p-status').style.color = "#ff0000";
+                }
+
+                let start = isPast ? targetDate : now;
+                let end = isPast ? now : targetDate;
+
+                let years = end.getFullYear() - start.getFullYear();
+                let months = end.getMonth() - start.getMonth();
+                let days = end.getDate() - start.getDate();
+
+                if (days < 0) {
+                    months--;
+                    const daysInPrevMonth = new Date(end.getFullYear(), end.getMonth(), 0).getDate();
+                    days += daysInPrevMonth;
+                }
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+
+                const totalSecs = Math.floor(diff / 1000);
+                const h = Math.floor((totalSecs / 3600) % 24);
+                const m = Math.floor((totalSecs / 60) % 60);
+                const s = Math.floor(totalSecs % 60);
+
+                document.getElementById('y-val').innerText = years;
+                document.getElementById('m-val').innerText = months;
+                document.getElementById('d-val').innerText = days;
+                document.getElementById('h-val').innerText = String(h).padStart(2, '0');
+                document.getElementById('min-val').innerText = String(m).padStart(2, '0');
+                document.getElementById('s-val').innerText = String(s).padStart(2, '0');
+            }
+
+            showPopup();
+            updateClock();
+            setInterval(updateClock, 1000);
+        })()
+
+const CSV_FILE = 'SiteSearch.csv';
+        
+        // CSV Column Mapping based on your file:
+        // 0: recipientAddress
+        // 1: count
+        // 4: collection
+        // 5: draw
+        // 6: date
+        const COL_ADDR = 0;
+        const COL_COUNT = 1;
+        const COL_COLL = 4;
+        const COL_DRAW = 5;
+        const COL_DATE = 6;
+
+        // === UTILITIES ===
+
+        // Function to strictly clean addresses for comparison
+        const normalizeAddr = (addr) => {
+            if (!addr) return '';
+            // Remove BOM, quotes, whitespace, and convert to lowercase
+            let clean = addr.replace(/[\uFEFF"'\s]/g, '').toLowerCase().trim();
+            // Remove '0x' prefix for safer comparison (optional but recommended)
+            if (clean.startsWith('0x')) clean = clean.substring(2);
+            return clean;
+        };
+
+        const formatNumber = (num) => {
+            return new Intl.NumberFormat().format(num);
+        };
+
+        // === MAIN LOGIC ===
+
+        async function handleSearch() {
+            const inputEl = document.getElementById('walletInput');
+            const btn = document.getElementById('searchBtn');
+            const originalBtnIcon = btn.innerHTML;
+            const rawInput = inputEl.value.trim();
+
+            if (rawInput.length < 10) {
+                alert("Please enter a valid full wallet address.");
+                return;
+            }
+
+            // UI Loading State
+            btn.innerHTML = '<div class="spinner"></div>';
+            btn.disabled = true;
+
+            const targetAddr = normalizeAddr(rawInput);
+            console.log("Searching for (normalized):", targetAddr);
+
+            try {
+                // Fetch with timestamp to avoid caching
+                const response = await fetch(`${CSV_FILE}?t=${new Date().getTime()}`);
+                
+                if (!response.ok) throw new Error("File not found or CORS blocked");
+                
+                const text = await response.text();
+                const lines = text.split(/\r\n|\n/); // Handle Windows & Unix line endings
+
+                let matches = [];
+                let totalTokens = 0;
+
+                // Loop through lines (Skipping header row 0)
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i];
+                    if (!line || line.trim() === '') continue;
+
+                    // Split CSV by comma
+                    // NOTE: This assumes no commas INSIDE the data fields. 
+                    // Given your file sample, this is safe.
+                    const cols = line.split(',');
+
+                    if (cols.length < 5) continue; // Skip malformed lines
+
+                    // Get address from column 0
+                    const rowAddr = normalizeAddr(cols[COL_ADDR]);
+
+                    // Exact Match Check
+                    if (rowAddr === targetAddr) {
+                        const count = parseInt(cols[COL_COUNT]) || 0;
+                        totalTokens += count;
+                        
+                        matches.push({
+                            count: count,
+                            collection: cols[COL_COLL] || 'N/A',
+                            draw: cols[COL_DRAW] || 'N/A',
+                            date: cols[COL_DATE] || 'N/A'
+                        });
+                    }
+                }
+
+                renderResults(matches, totalTokens);
+
+            } catch (error) {
+                console.error(error);
+                if (window.location.protocol === 'file:') {
+                    alert("⚠️ Error: Cannot read CSV file in local mode due to browser security.\n\nPlease use a local server (VS Code Live Server) or upload to GitHub Pages.");
+                } else {
+                    alert("Error loading data: " + error.message);
+                }
+            } finally {
+                btn.innerHTML = originalBtnIcon;
+                btn.disabled = false;
+            }
+        }
+
+        function renderResults(matches, totalTokens) {
+            const container = document.getElementById('results-container');
+            const overlay = document.getElementById('overlay');
+            const modal = document.getElementById('modal');
+            const summary = document.getElementById('summary-text');
+
+            container.innerHTML = '';
+
+            if (matches.length === 0) {
+                summary.innerText = "Luck is Warming Up...";
+
+container.innerHTML = `
+    <div class="flex flex-col items-center justify-center py-6 px-4 text-center space-y-6" dir="ltr">
+        
+        <!-- انیمیشن آیکون برای جلب توجه -->
+        <div class="relative">
+            <div class="absolute inset-0 bg-yellow-500/20 blur-xl rounded-full animate-pulse"></div>
+            <svg class="w-16 h-16 text-yellow-500 relative z-10 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-xl font-bold text-white tracking-tight">
+                Haven't won <span class="text-red-500">YET?</span>
+            </h3>
+            <p class="text-gray-400 text-sm italic">"The engine is running, your TXs are just waiting for their turn!"</p>
+        </div>
+
+        <!-- بخش اقدامات اصلی با طراحی کارتی -->
+        <div class="w-full grid grid-cols-1 gap-4 mt-2">
+            
+            <!-- گزینه ۱: تراکنش (افزایش شانس تصاعدی) -->
+            <div class="bg-gradient-to-r from-gray-800 to-gray-900 border border-yellow-500/30 p-4 rounded-xl shadow-lg transform transition hover:scale-[1.02]">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">BOOM #1</span>
+                    <h4 class="text-yellow-400 font-semibold">Ignite Your Luck Engine</h4>
+                </div>
+                <p class="text-xs text-gray-300 leading-relaxed text-left">
+                    <span class="text-white font-bold underline">Higher TX Value = Explosive Multiplier!</span><br>
+                    Every Buy/Sell creates a permanent ID. More volume means you move to the 
+                    <span class="text-yellow-500 font-bold">Golden List</span> for massive gift floods.
+                </p>
+            </div>
+
+            <!-- گزینه ۲: کیف پول جدید (ثبت‌نام رایگان همیشگی) -->
+            <div class="bg-gradient-to-r from-gray-800 to-gray-900 border border-green-500/30 p-4 rounded-xl shadow-lg transform transition hover:scale-[1.02]">
+                <div class="flex items-center space-x-3 mb-2">
+                    <span class="bg-green-500 text-white text-xs font-bold px-2 py-1 rounded">BOOM #2</span>
+                    <h4 class="text-green-400 font-semibold">Multiply Your Presence</h4>
+                </div>
+                <p class="text-xs text-gray-300 leading-relaxed text-left">
+                    <span class="text-white font-bold">+ ADD NEW WALLET</span> to register for the 
+                    <span class="text-green-500 font-bold">FREE DRAW</span>. 
+                    One account is good, multiple wallets are an <span class="blink text-green-400">Infinite Loop</span> of chances!
+                </p>
+            </div>
+        </div>
+
+        <!-- شعار ترغیب‌کننده نهایی -->
+        <div class="pt-4">
+            <p class="text-blue-300 text-[10px] uppercase tracking-[0.2em] font-medium animate-pulse">
+                One Transaction • Infinite Winnings • Forever On-Chain
+            </p>
+        </div>
+    </div>
+                `;
+            } else {
+                summary.innerHTML = `<span class="text-blue-400 text-md font-bold">${matches.length} Wins</span> found<br>Total Wins <span class="text-green-400 font-bold">${formatNumber(totalTokens)} NFTs</span>`;
+                
+                matches.forEach(match => {
+                    const el = document.createElement('div');
+                    el.className = 'result-card';
+                    el.innerHTML = `
+                        <div class="flex flex-col">
+                            <span class="text-white font-semibold text-sm">Coll. ${match.collection.replace(/"/g, '')}</span>
+                            <span class="text-xs text-gray-500">${match.date.replace(/"/g, '')} • ${match.draw.replace(/"/g, '')} Draw</span>
+                        </div>
+                        <div class="flex items-center bg-green-900/20 px-3 py-1 rounded border border-green-800/50">
+                            <span class="text-green-400 font-bold text-sm">+${match.count}</span>
+                        </div>
+                    `;
+                    container.appendChild(el);
+                });
+            }
+
+            overlay.style.display = 'block';
+            modal.style.display = 'block';
+        }
+
+        // === EVENT LISTENERS ===
+        
+        document.getElementById('searchBtn').addEventListener('click', handleSearch);
+        
+        document.getElementById('walletInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSearch();
+        });
+
+        const closeModal = () => {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+        };
+
+        document.getElementById('closeBtn').addEventListener('click', closeModal);
+        document.getElementById('overlay').addEventListener('click', closeModal);
+        document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeModal(); });
+
+        // Check for Local File execution
+        if (window.location.protocol === 'file:') {
+            document.getElementById('local-warning').classList.remove('hidden');
+        }
+
+</script>
+
+</body>
+
+
+</html>
+
+
+
