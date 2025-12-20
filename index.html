@@ -15,12 +15,12 @@
 
     <script type="application/ld+json">
     {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Hi Draw NFT",
-      "applicationCategory": "DecentralizedApplication",
-      "operatingSystem": "Polygon Blockchain",
-      "offers": {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Hi Draw NFT",
+        "applicationCategory": "DecentralizedApplication",
+        "operatingSystem": "Polygon Blockchain",
+        "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "ETH"
@@ -988,7 +988,6 @@ body {
 
             <!-- Body Text Content -->
 <div class="text-center mb-3 mt-3" dir="ltr">
-    <!-- تیتر اصلی با تغییر رنگ زنده -->
     <h2 class="animated-text text-lg mb-3">
         Welcome to the World’s First <br>
         <span>Perpetual On-Chain</span>
@@ -996,15 +995,12 @@ body {
     </h2>
 
     <div class="text-white text-md leading-7 space-y-4">
-        <!-- بخش نکته اصلی (انگلیسی) -->
         <p class="font-semibold">
             🚀 <span class="text-yellow-400">One Transaction = Infinite Winnings ♾️</span><br>
             Your TX-ID stays on the blockchain <span class="blink text-yellow-400">FOREVER</span>
         </p>
 
         <hr class="border-gray-600 my-2">
-
-        <!-- بخش راهنمای سریع (فارسی/انگلیسی ترکیبی) -->
         <div class="text-sm space-y-2 text-gray-300">
             <p><strong class="text-white">+ ADD WALLET</strong>
                 <br>to register for <span class="text-green-500">FREE DRAW</span></p>
@@ -1016,7 +1012,6 @@ body {
                 <br>List gifts instantly or hold for high value</p>
         </div>
 
-        <!-- شعار نهایی -->
         <p class="text-xs italic text-blue-300">
             "The coffee is gone in 10 minutes, but your luck stays forever"
         </p>
@@ -1068,9 +1063,8 @@ body {
         </div>
         
         <!-- Local File Warning -->
-        <div id="local-warning" class="hidden max-w-lg mx-auto mt-4 p-4 bg-yellow-900/20 border border-yellow-700/50 rounded-lg text-yellow-200 text-sm text-center">
-            ⚠️ You are running this file locally. Browsers may block loading the CSV file due to security policies (CORS).<br>
-            Please use a local server (e.g., VS Code Live Server) or upload to a host.
+        <div id="local-warning" class="hidden max-w-lg mx-auto mt-0 mb-2 p-4 bg-yellow-900/20 border border-yellow-700/50 rounded-lg text-yellow-200 text-sm text-center">
+            ⚠️ .CSV File Not Suport In Local Mode Run
         </div>
     </div>
 
@@ -1079,8 +1073,8 @@ body {
     <div id="modal" class="modal-content">
         <div class="modal-header">
             <div>
-                <h3 class="text-lg font-bold text-white">Search Results</h3>
-                <div id="summary-text" class="text-xs text-gray-400 mt-1">Found 0 records</div>
+                <h3 class="text-lg font-bold text-white">Wallet Wins</h3>
+                <div id="summary-text" class="text-xs text-gray-400 mt-1">Found 0 Wins</div>
             </div>
             <button id="closeBtn" class="text-gray-500 hover:text-white transition">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -1307,10 +1301,9 @@ body {
             </p>
 
         </div>
-        <!-- --- پایان بخش Free Draw --- -->
 
 
-    <!-- پاپ‌آپ موفقیت (Success Popup) -->
+
     <div id="successPopup" class="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center popup-modal popup-hidden">
         <div class="terminal-popup-content p-6 w-80 text-center">
             <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -1320,7 +1313,6 @@ body {
         </div>
     </div>
 
-    <!-- پاپ‌آپ خطا (Error/Invalid Popup) -->
     <div id="errorPopup" class="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center popup-modal popup-hidden">
         <div class="terminal-popup-content error p-6 w-80 text-center">
             <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -1940,8 +1932,6 @@ const collectionConfigs = [
         const track = document.getElementById('track');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        
-        // تنظیمات کاروسل
         const itemWidth = 56;
         const gap = 16;
         const totalMove = itemWidth + gap;
@@ -2219,23 +2209,25 @@ const CSV_FILE = 'SiteSearch.csv';
             container.innerHTML = '';
 
             if (matches.length === 0) {
-                summary.innerText = "No records found";
+                summary.innerText = "No Wins found";
                 container.innerHTML = `
                     <div class="flex flex-col items-center justify-center py-10 text-gray-500">
                         <svg class="w-12 h-12 mb-3 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                        <p>No transactions found for this address.</p>
+                        <p>Haven't won yet?</p><br>
+                        <p>You can add wallet transactions to increase your chances</p><br>
+                        <p>You can also add a new wallet right now</p>
                     </div>
                 `;
             } else {
-                summary.innerHTML = `<span class="text-blue-400 font-bold">${matches.length} Records</span> found | Total Wins: <span class="text-green-400 font-bold">${formatNumber(totalTokens)} Tokens</span>`;
+                summary.innerHTML = `<span class="text-blue-400 font-bold">${matches.length} Wins</span> found<br>Total Wins: <span class="text-green-400 font-bold">${formatNumber(totalTokens)} NFTs</span>`;
                 
                 matches.forEach(match => {
                     const el = document.createElement('div');
                     el.className = 'result-card';
                     el.innerHTML = `
                         <div class="flex flex-col">
-                            <span class="text-white font-semibold text-sm">${match.collection.replace(/"/g, '')}</span>
-                            <span class="text-xs text-gray-500">${match.date.replace(/"/g, '')} • ${match.draw.replace(/"/g, '')}</span>
+                            <span class="text-white font-semibold text-sm">Coll. ${match.collection.replace(/"/g, '')}</span>
+                            <span class="text-xs text-gray-500">${match.date.replace(/"/g, '')} • ${match.draw.replace(/"/g, '')} Draw</span>
                         </div>
                         <div class="flex items-center bg-green-900/20 px-3 py-1 rounded border border-green-800/50">
                             <span class="text-green-400 font-bold text-sm">+${match.count}</span>
