@@ -2206,6 +2206,10 @@ const CSV_FILE = 'SiteSearch.csv';
             const modal = document.getElementById('modal');
             const summary = document.getElementById('summary-text');
 
+            container.innerHTML = '';
+
+            if (matches.length === 0) {
+
 summary.innerText = "Luck is Warming Up...";
 
 container.innerHTML = `
@@ -2314,5 +2318,6 @@ container.innerHTML = `
 
 
 </html>
+
 
 
