@@ -2598,7 +2598,7 @@ const CSV_FILE = 'SiteSearch.csv';
                     </div>
                 `;
             } else {
-                summary.innerHTML = `<span class="text-blue-400 font-bold">${matches.length} Wins</span> found<br>Total Wins: <span class="text-green-400 font-bold">${formatNumber(totalTokens)} NFTs</span>`;
+                summary.innerHTML = `<span class="text-blue-400 text-md font-bold">${matches.length} Wins</span> found<br>Total Wins <span class="text-green-400 font-bold">${formatNumber(totalTokens)} NFTs</span>`;
                 
                 matches.forEach(match => {
                     const el = document.createElement('div');
@@ -2648,4 +2648,5 @@ const CSV_FILE = 'SiteSearch.csv';
 
 
 </html>
+
 
