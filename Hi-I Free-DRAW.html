@@ -2605,58 +2605,57 @@ async function handleSearch() {
     const day = now.getDate();
     const monthNum = now.getMonth() + 1;
 
-    // مسیر پوشه و نام فایل
+    // تنظیم دقیق مسیر پوشه‌ها مطابق تصویر گیت‌هاب
+    // پوشه اصلی: 1-Hi-I-FreeDraw-Results
     const baseDir = `1-Hi-I-FreeDraw-Results/Hi-I ${year}/${monthNum}-${monthName}/${day}`;
-    const fileName = `Hi-I FREE-Draw ${String(day).padStart(2, '0')} ${monthName} ${year}.pdf`;
     
-    // استفاده از encodeURI برای حل مشکل فاصله‌ها در آدرس
-    const dataUrl = encodeURI(`https://raw.githubusercontent.com/hdnft/hi/main/${baseDir}/draw-data.json`);
-    const pdfUrl = encodeURI(`https://raw.githubusercontent.com/hdnft/hi/main/${baseDir}/${fileName}`);
+    // نام فایل با رعایت حروف بزرگ FREE مطابق تصویر
+    const fileName = `Hi-I FREE-Draw ${String(day).padStart(2, '0')} ${monthName} ${year}.pdf`;
+
+    const dataUrl = `https://raw.githubusercontent.com/hdnft/hi/main/${baseDir}/draw-data.json`;
+    const pdfUrl = `https://raw.githubusercontent.com/hdnft/hi/main/${baseDir}/${fileName}`;
 
     let results = [];
 
     try {
-        // ۱. تلاش برای یافتن فایل PDF (مستقل از JSON)
-        try {
-            const pdfCheck = await fetch(pdfUrl, { method: 'HEAD' });
-            if (pdfCheck.ok) {
+        // ۱. بررسی فایل JSON (مشابه فایل TX-DRAW)
+        const response = await fetch(dataUrl);
+        if (response.ok) {
+            const data = await response.json();
+            const userMatch = data.winners.find(w => w.address.toLowerCase() === wallet);
+            if (userMatch) {
                 results.push({
-                    type: 'PDF Results',
-                    name: `Official Draw Results - ${day} ${monthName}`,
-                    url: pdfUrl.replace('raw.githubusercontent.com', 'github.com').replace('/main/', '/blob/main/'),
-                    icon: 'file-pdf'
+                    type: 'Winning Ticket',
+                    name: `Congratulations! You have matches.`,
+                    count: userMatch.count,
+                    icon: 'trophy'
                 });
             }
-        } catch (e) { console.log("PDF check failed"); }
+        }
 
-        // ۲. تلاش برای دریافت داده‌های برنده‌ (JSON)
-        try {
-            const response = await fetch(dataUrl);
-            if (response.ok) {
-                const data = await response.json();
-                const userMatch = data.winners.find(w => w.address.toLowerCase() === wallet);
-                if (userMatch) {
-                    results.push({
-                        type: 'Winning Ticket',
-                        name: `Congratulations! You have matches.`,
-                        count: userMatch.count,
-                        icon: 'trophy'
-                    });
-                }
-            }
-        } catch (e) { console.log("JSON data not found"); }
+        // ۲. بررسی فایل PDF نتایج
+        const pdfCheck = await fetch(pdfUrl, { method: 'HEAD' });
+        if (pdfCheck.ok) {
+            results.push({
+                type: 'PDF Results',
+                name: `Official Draw Results - ${day} ${monthName}`,
+                url: pdfUrl.replace('raw.githubusercontent.com', 'github.com').replace('/main/', '/blob/main/'),
+                icon: 'file-pdf'
+            });
+        }
 
         if (results.length === 0) {
             resultArea.innerHTML = `
                 <div class="text-center p-8 bg-gray-800/50 rounded-xl border border-gray-700">
                     <p class="text-gray-400">No results found for today yet.</p>
+                    <p class="text-xs text-gray-500 mt-2">Check back after the daily update.</p>
                 </div>`;
         } else {
             showResults(results);
         }
 
     } catch (error) {
-        console.error(error);
+        console.error('Search error:', error);
         resultArea.innerHTML = `<p class="text-red-400">Error connecting to server. Please try again later.</p>`;
     } finally {
         loading.classList.add('hidden');
@@ -2776,6 +2775,7 @@ container.innerHTML = `
 
 
 </html>
+
 
 
 
