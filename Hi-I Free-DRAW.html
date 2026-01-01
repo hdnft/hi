@@ -2586,79 +2586,82 @@ const CSV_FILE = 'SiteSearch.csv';
 
         // === MAIN LOGIC ===
 
-        async function handleSearch() {
-            const inputEl = document.getElementById('walletInput');
-            const btn = document.getElementById('searchBtn');
-            const originalBtnIcon = btn.innerHTML;
-            const rawInput = inputEl.value.trim();
+async function handleSearch() {
+    const wallet = document.getElementById('walletInput').value.trim().toLowerCase();
+    const resultArea = document.getElementById('resultArea');
+    const loading = document.getElementById('loading');
 
-            if (rawInput.length < 10) {
-                alert("Please enter a valid full wallet address.");
-                return;
+    if (!wallet) {
+        alert('Please enter a wallet address.');
+        return;
+    }
+
+    resultArea.innerHTML = '';
+    loading.classList.remove('hidden');
+
+    const now = new Date();
+    const year = now.getFullYear();
+    const monthName = months[now.getMonth()];
+    const day = now.getDate();
+    const monthNum = now.getMonth() + 1;
+
+    // مسیر پوشه و نام فایل
+    const baseDir = `1-Hi-I-FreeDraw-Results/Hi-I ${year}/${monthNum}-${monthName}/${day}`;
+    const fileName = `Hi-I FREE-Draw ${String(day).padStart(2, '0')} ${monthName} ${year}.pdf`;
+    
+    // استفاده از encodeURI برای حل مشکل فاصله‌ها در آدرس
+    const dataUrl = encodeURI(`https://raw.githubusercontent.com/hdnft/hi/main/${baseDir}/draw-data.json`);
+    const pdfUrl = encodeURI(`https://raw.githubusercontent.com/hdnft/hi/main/${baseDir}/${fileName}`);
+
+    let results = [];
+
+    try {
+        // ۱. تلاش برای یافتن فایل PDF (مستقل از JSON)
+        try {
+            const pdfCheck = await fetch(pdfUrl, { method: 'HEAD' });
+            if (pdfCheck.ok) {
+                results.push({
+                    type: 'PDF Results',
+                    name: `Official Draw Results - ${day} ${monthName}`,
+                    url: pdfUrl.replace('raw.githubusercontent.com', 'github.com').replace('/main/', '/blob/main/'),
+                    icon: 'file-pdf'
+                });
             }
+        } catch (e) { console.log("PDF check failed"); }
 
-            // UI Loading State
-            btn.innerHTML = '<div class="spinner"></div>';
-            btn.disabled = true;
-
-            const targetAddr = normalizeAddr(rawInput);
-            console.log("Searching for (normalized):", targetAddr);
-
-            try {
-                // Fetch with timestamp to avoid caching
-                const response = await fetch(`${CSV_FILE}?t=${new Date().getTime()}`);
-                
-                if (!response.ok) throw new Error("File not found or CORS blocked");
-                
-                const text = await response.text();
-                const lines = text.split(/\r\n|\n/); // Handle Windows & Unix line endings
-
-                let matches = [];
-                let totalTokens = 0;
-
-                // Loop through lines (Skipping header row 0)
-                for (let i = 1; i < lines.length; i++) {
-                    const line = lines[i];
-                    if (!line || line.trim() === '') continue;
-
-                    // Split CSV by comma
-                    // NOTE: This assumes no commas INSIDE the data fields. 
-                    // Given your file sample, this is safe.
-                    const cols = line.split(',');
-
-                    if (cols.length < 5) continue; // Skip malformed lines
-
-                    // Get address from column 0
-                    const rowAddr = normalizeAddr(cols[COL_ADDR]);
-
-                    // Exact Match Check
-                    if (rowAddr === targetAddr) {
-                        const count = parseInt(cols[COL_COUNT]) || 0;
-                        totalTokens += count;
-                        
-                        matches.push({
-                            count: count,
-                            collection: cols[COL_COLL] || 'N/A',
-                            draw: cols[COL_DRAW] || 'N/A',
-                            date: cols[COL_DATE] || 'N/A'
-                        });
-                    }
+        // ۲. تلاش برای دریافت داده‌های برنده‌ (JSON)
+        try {
+            const response = await fetch(dataUrl);
+            if (response.ok) {
+                const data = await response.json();
+                const userMatch = data.winners.find(w => w.address.toLowerCase() === wallet);
+                if (userMatch) {
+                    results.push({
+                        type: 'Winning Ticket',
+                        name: `Congratulations! You have matches.`,
+                        count: userMatch.count,
+                        icon: 'trophy'
+                    });
                 }
-
-                renderResults(matches, totalTokens);
-
-            } catch (error) {
-                console.error(error);
-                if (window.location.protocol === 'file:') {
-                    alert("⚠️ Error: Cannot read CSV file in local mode due to browser security.\n\nPlease use a local server (VS Code Live Server) or upload to GitHub Pages.");
-                } else {
-                    alert("Error loading data: " + error.message);
-                }
-            } finally {
-                btn.innerHTML = originalBtnIcon;
-                btn.disabled = false;
             }
+        } catch (e) { console.log("JSON data not found"); }
+
+        if (results.length === 0) {
+            resultArea.innerHTML = `
+                <div class="text-center p-8 bg-gray-800/50 rounded-xl border border-gray-700">
+                    <p class="text-gray-400">No results found for today yet.</p>
+                </div>`;
+        } else {
+            showResults(results);
         }
+
+    } catch (error) {
+        console.error(error);
+        resultArea.innerHTML = `<p class="text-red-400">Error connecting to server. Please try again later.</p>`;
+    } finally {
+        loading.classList.add('hidden');
+    }
+}
 
         function renderResults(matches, totalTokens) {
             const container = document.getElementById('results-container');
@@ -2773,6 +2776,7 @@ container.innerHTML = `
 
 
 </html>
+
 
 
 
